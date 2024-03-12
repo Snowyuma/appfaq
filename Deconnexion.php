@@ -1,11 +1,19 @@
+<?php 
+//démarre session 
+session_start();
+//
+$submit = isset($_POST['submit']);
+
+?>
 <!DOCTYPE html>
+
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deconnexion</title>
+    <title>Déconnexion</title>
     <link rel="stylesheet" href="main.css">
 </head>
 
@@ -16,26 +24,43 @@
             <div class="parent-link">
                 
                 <a href="FAQ.php" class="social-links">FAQ</a>
-                <a href="AjoutQuestion.php" class="social-links">Ajout-Question</a>
-                <a href="Modif.php" class="social-links">Modification-Question</a>
+                <a href="ajoutQuestion.php" class="social-links">Ajout-Question</a>
+                <a href="modif.php" class="social-links">Modification-Question</a>
                 <a href="#" class="social-links">Déconnexion</a>
             </div>
         </nav>
     </header>
     <div class="formdeco">
+
+        <form action=<?php $_SERVER["PHP_SELF"] ?> method="POST" class="sub-formdeco">
+
         <form action="#" class="sub-formdeco">
+
             <div class="upper-form">
                 <h2>Déconnexion de la FAQ</h2>
                 <p class="p"> Voulez-vous vraiment vous déconneter ?</p>
             </div>
 
             <div class="marginebuttom">
+           
                 <button class="bd1"><a href="FAQ.php" class="p">Ne pas se déconneter</a></button> 
                 
-                <button class="bd2" ><a href="Connexion.php" class="p">Se déconneter</a></button>
+                <button class="bd2 p" type="submit" name="submit">Se déconneter</button>
+          
+
             </div>
         </form>
     </div>
+  <?php
+if ($submit){
+    session_unset(); // Détruit toutes les variables de session
+    session_destroy(); // Détruit la session (mais pas le cookie)
+    setcookie(session_name(),'',-1,'/'); // Détruit le cookie de session
+    header("Location: accueil.php"); // Revient à la page d'accueil
+    exit();
+    }
+  ?>
+            
 
     <div class="legal">
         <p>

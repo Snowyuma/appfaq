@@ -17,7 +17,7 @@
                 
                 <a href="AjoutQuestion.php" class="social-links">Ajout-Question</a>
                 <a href="Modif.php" class="social-links">Modification-Question</a>
-                <a href="Deconnexion" class="social-links">Déconnexion</a>
+                <a href="Deconnexion.php" class="social-links">Déconnexion</a>
             </div>
         </nav>
     </header>
@@ -41,21 +41,21 @@
                         <td class="p">Jean-pierre</td>
                         <td class="tdfaq p">À quelle fréquence pratiquez-vous un sport ou une activité physique chaque semaine ?</td>
                         <td><input class="inputfaq" type="text" value="réponse"></input> <br></td>
-                        <td><a href="supr.php" class="signup">Supprimer </a></td>
+                        <td><a href="Supr.php" class="signup">Supprimer </a></td>
                     </tr>
                     <tr class="tr">
                         <td class="p">2</td>
                         <td class="p">Jean-caillou</td>
                         <td class="tdfaq p">Quels types de sports ou d'activités physiques aimez-vous ?</td>
                         <td><input class="inputfaq" type="text" value="réponse"></input> <br></td>
-                        <td><a href="supr.php" class="signup">Supprimer </a></td>
+                        <td><a href="Supr.php" class="signup">Supprimer </a></td>
                     </tr>
                     <tr class="tr">
                         <td class="p">3</td>
                         <td class="p">Jean-rocher</td>
                         <td class="tdfaq p">Avez-vous déjà pratiqué un sport de compétition ?</td>
                         <td><input class="inputfaq" type="text" value="réponse"></input> <br></td>
-                        <td><a href="supr.php" class="signup">Supprimer </a></td>
+                        <td><a href="Supr.php" class="signup">Supprimer </a></td>
                     </tr>
                     </tr>
                     <tr class="tr">
@@ -63,7 +63,7 @@
                         <td class="p">Jean-Montagne</td>
                         <td class="tdfaq p">Depuis combien de temps pratiquez-vous votre sport ou activité physique préféré ?</td>
                         <td><input class="inputfaq" type="text" value="réponse"></input> <br></td>
-                        <td><a href="supr.php" class="signup">Supprimer </a></td>
+                        <td><a href="Supr.php" class="signup">Supprimer </a></td>
                     </tr>
                 </table>
             <br>

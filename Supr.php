@@ -1,3 +1,17 @@
+<?php
+$nom='Doe';
+$sql = "delete from faq where id_faq=";
+try {
+$sth = $dbh->prepare($sql);
+$sth->execute(array(
+':nom' => $nom
+));
+} catch ( PDOException $ex) {
+die("Erreur lors de la requête SQL : ".$ex->getMessage());
+}
+echo "<p>".$sth->rowcount()." enregistrement(s) supprimé(s)</p>";
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 

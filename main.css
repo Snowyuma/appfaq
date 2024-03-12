@@ -1,0 +1,532 @@
+.bandeau {
+    size: auto;
+    text-align: center;
+    margin-top: 2.5%;
+
+    h1 {
+        color: white;
+    }
+
+}
+
+.legal {
+    text-align: center;
+    text-rendering: geometricPrecision;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 98vw;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: rgba(50, 50, 93, 0, 25) 0px 13px 27px 5px, rgba(0, 0, 0, 0.3) 0px 8px 16px 8px;
+    background-color: black;
+}
+
+@import url('https://fonts.googleapis.com/css2? family=Nunito:wght@400;500;600;700;800;900&display=swap');
+
+* {
+    padding: 20;
+    margin: 20;
+    box-sizing: border-box;
+}
+
+/* Style arrière-plan*/
+body {
+    font-family: 'Nunito', sans-serif;
+    background-image: linear-gradient(45deg, #220aff 0%, #ff0606 100%);
+    height: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* Style Formulaire*/
+.form {
+    display: flex;
+    justify-content: center;
+    padding-top: auto;
+}
+
+.sub-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: rgba(50, 50, 93, 0, 25) 0px 13px 27px 5px, rgba(0, 0, 0, 0.3) 0px 8px 16px 8px;
+    background-color: black;
+    margin-bottom: 10%;
+    margin-top: 5%;
+}
+
+/* Style Titre Formulaire*/
+h2 {
+    margin: 1.5rem 8 2rem 0;
+    text-align: center;
+    color: white;
+}
+
+/* Style texte oublie*/
+h6 {
+    margin: 1.5rem 8 2rem 0;
+    text-align: center;
+    color: white;
+}
+
+h5 {
+    margin: 1.5rem 8 2rem 0;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-style: italic;
+}
+
+/* Style Text de précision input*/
+label {
+    padding-left: 16px;
+    opacity: 0.75;
+    color: white;
+    margin-bottom: 50px;
+}
+
+/* Style Insertion*/
+input {
+    display: flex;
+    border-radius: 50px;
+    border-style: none;
+    outline: none;
+    margin-left: 5%;
+    margin: center;
+    margin-top: 8px;
+    padding: 12px 24px;
+    width: 250px;
+    background-color: #262928;
+    color: white;
+}
+
+input:focus {
+    opacity: 0.7;
+}
+
+/* Style Boutton*/
+button {
+    padding: 12px 48px;
+    border-radius: 50px;
+    color: white;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-width: 0;
+    outline: none;
+    background-color: rgba(212, 0, 255, 0.836);
+    font-weight: 600;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin: center;
+    position: relative;
+    transition: all .2s;
+    cursor: pointer;
+
+    /* Style Boutton Animation*/
+    button::after {
+        content: '';
+        width: 400px;
+        height: 400px;
+        position: absolute;
+        top: -50px;
+        left: -100px;
+        background-image: linear-gradient(225deg, #27d86c 0%, #26caf8 50%, #c625d0 100%);
+        z-index: -1;
+        transition: all .5s;
+    }
+
+    button:hover::after {
+        transform: rotate(150deg);
+    }
+}
+
+button:hover {
+    opacity: 0.8;
+    transform: translate(0, -6px);
+    box-shadow: 5px -5px 18px 0px rgb(144, 64, 248), -5px 5px 18px 0px rgb(39, 201, 255);
+}
+
+.bottom-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.buttonco {
+    width: 75%;
+    margin-left: 19%;
+}
+
+/* Style Boutton s'inscrire'*/
+.signin {
+    padding-left: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #2104FD;
+    margin-bottom: 20%;
+}
+
+.signup {
+    padding-left: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #2104FD;
+}
+
+.signin:hover {
+    opacity: 0.8;
+}
+
+/* Style Forme Grand barre en bas pour le blabla*/
+.form1 {
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+}
+
+
+
+/* Style Emplacement boutton*/
+.marginebuttom {
+
+    margin-bottom: 100px;
+
+}
+
+/* Style liste déroulante à choix unique*/
+select {
+    display: flex;
+    border-radius: 50px;
+    border-style: none;
+    outline: none;
+    margin-top: 8px;
+    margin-left: 5%;
+    padding: 12px 24px;
+    width: 250px;
+    background-color: #EAEEED;
+}
+
+option {
+    display: flex;
+    border-radius: 50px;
+    border-style: none;
+    outline: none;
+    margin-top: 8px;
+    padding: 12px 24px;
+    width: 250px;
+    background-color: #EAEEED;
+}
+
+/* Style Text de précision input*/
+label {
+    color: white;
+    padding-left: 16px;
+    opacity: 0.75;
+    margin-left: 10%;
+}
+
+/* Style Text (Vous n'avez pas de compte ?)*/
+.no-account {
+    color: white;
+}
+
+.account {
+    color: white;
+}
+
+/* Style Texte*/
+.p {
+    color: white;
+    text-align: center;
+    text-decoration: none;
+
+}
+
+.bd {
+    background-color: darkred;
+    text-align: center;
+    margin: center;
+    margin-left: 38%;
+    margin-top: -5%;
+}
+
+.bd1 {
+    background-color: green;
+    text-align: center;
+    right: 100px;
+    width: 171.58px;
+    top: 100px;
+    text-decoration: none;
+}
+
+.bd2 {
+    background-color: darkred;
+    text-align: center;
+    left: 100px;
+    bottom: -30px;
+    text-decoration: none;
+
+}
+
+.bd3 {
+    background-color: green;
+    text-align: center;
+    margin: center;
+    width: 171.58px;
+    margin-bottom: -10%;
+
+}
+.bd4 {
+    background-color: darkred;
+    text-align: center;
+    margin: center;
+    margin-left: 41%;
+    margin-top: -5%;
+}
+
+.bdco {
+    text-align: center;
+    right: 100px;
+    top: 10px;
+    text-decoration: none;
+}
+
+.bdins {
+    text-align: center;
+    left: 100px;
+    bottom: 45px;
+    text-decoration: none;
+}
+
+
+/* Style Question*/
+.question {
+    color: white;
+    max-width: 300px;
+    width: 300px;
+    margin-right: 40px;
+    text-align: center;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+
+/* Style Insertion ligue*/
+select {
+    background-color: #262928;
+    color: white;
+}
+
+/* Style couleur du soulignage*/
+u {
+    color: white;
+}
+
+select option {
+    color: white;
+    background-color: #262928;
+}
+
+/* Style Insertion Form (hors ligue)*/
+input {
+    color: white;
+}
+
+.rest {
+    background-color: rgb(158, 0, 0);
+    right: 40px;
+    top: 80px;
+}
+
+
+
+
+
+
+/* Style Profil*/
+h3 {
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    margin-bottom: 20%;
+
+}
+
+
+/* Style legal accueil*/
+.legalacc {
+    text-align: center;
+    text-rendering: geometricPrecision;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 98vw;
+    height: auto;
+    margin-top: 9%;
+    border-radius: 12px;
+    box-shadow: rgba(50, 50, 93, 0, 25) 0px 13px 27px 5px, rgba(0, 0, 0, 0.3) 0px 8px 16px 8px;
+    background-color: black;
+}
+
+/* Style élément de section de navigation (peut-être ajouter)*/
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-links,
+.msg {
+    text-decoration: none;
+}
+
+.parent-link {
+    margin-right: 0;
+    margin-bottom: 3%;
+}
+
+.social-links {
+    padding: 0 2.5rem;
+    margin: 0;
+    color: white;
+    font-weight: 500;
+}
+
+.social-links:hover {
+    opacity: 0.8;
+}
+
+.sm-icon {
+    padding: 0 1rem;
+    margin: 0;
+    color: white;
+}
+
+.sm-icon:hover {
+    opacity: 0.8;
+}
+
+nav {
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 32px;
+}
+
+/*Mot_de_passe_oublié.php*/
+
+.adressemail {
+    margin-top: 10%;
+    margin-bottom: 10%;
+
+}
+
+a {
+    color: white;
+}
+
+table,
+th,
+td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(255, 255, 255);
+    border-collapse: collapse;
+    width: auto;
+    height: 23.65px;
+    color: rgb(255, 255, 255);
+}
+
+.tdfaq {
+    width: 650px;
+}
+
+.inputfaq {
+    margin-left: -0.5%;
+}
+
+/* Style Formulaire*/
+.formfaq {
+    display: flex;
+    justify-content: center;
+    padding-top: auto;
+}
+
+.sub-formfaq {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: rgba(50, 50, 93, 0, 25) 0px 13px 27px 5px, rgba(0, 0, 0, 0.3) 0px 8px 16px 8px;
+    background-color: black;
+    margin-bottom: 10%;
+    margin-top: 5%;
+}
+
+/* Style Formulaire*/
+.formdeco {
+    display: flex;
+    justify-content: center;
+    padding-top: auto;
+}
+
+.sub-formdeco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: rgba(50, 50, 93, 0, 25) 0px 13px 27px 5px, rgba(0, 0, 0, 0.3) 0px 8px 16px 8px;
+    background-color: black;
+    margin-bottom: 10%;
+    margin-top: 5%;
+}
+
+/* Style accueil*/
+.formacc {
+    display: flex;
+    justify-content: center;
+    padding-top: auto;
+}
+
+.sub-formacc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: rgba(50, 50, 93, 0, 25) 0px 13px 27px 5px, rgba(0, 0, 0, 0.3) 0px 8px 16px 8px;
+    background-color: black;
+    margin-bottom: 10%;
+    margin-top: 5%;
+}
+
+.inputadd {
+    margin-bottom: 5%;
+    margin-top: -3%;
+    margin-left: 0%;
+}
+
+.labeladd {
+    margin-left: 0%;
+}
+
+a {
+    text-decoration: none;
+}

@@ -54,6 +54,23 @@
                     <button type="submit">S'inscrire</button>
                     <br>
                 </div>
+                <?php
+$submit = isset($_POST['submit']);
+$sql = "insert into user(pseudo,mdp,mail,id_ligue)
+values (:pseudo,:mdp,:mail,:id_ligue)";
+try {
+$sth = $dbh->prepare($sql);
+$sth->execute(array(
+':pseudo' => $pseudo,
+':mdp' => $mdp,
+':mail' => $mail,
+':id_ligue' => $id_ligue,
+));
+} catch (PDOException $ex) {
+die("Erreur lors de la requête SQL : ".$ex->getMessage());
+}
+echo "<p>".$sth->rowcount()." enregistrement(s) ajouté(s)</p>";
+                ?>
             </div>
             <div class="bottom-form">
                 <div class="account">Vous avez dèja un compte ?</div>

@@ -31,6 +31,21 @@
             <br>
         </form>
     </div>
+<?php
+$sql = "insert into faq(question, dat_question,id_user)
+values (:question, :dat_question, :id_user)";
+try {
+$sth = $dbh->prepare($sql);
+$sth->execute(array(
+':question' => $question,
+':dat_question' => $dat_question,
+':id_user' => $id_user
+));
+} catch (PDOException $ex) {
+die("Erreur lors de la requête SQL : ".$ex->getMessage());
+}
+echo "<p>".$sth->rowcount()." enregistrement(s) ajouté(s)</p>";
+?>
 
     <div class="legal">
         <p>

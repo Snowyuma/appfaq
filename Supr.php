@@ -1,10 +1,10 @@
 <?php
-$nom='Doe';
+$id_faq='';
 $sql = "delete from faq where id_faq=";
 try {
 $sth = $dbh->prepare($sql);
 $sth->execute(array(
-':nom' => $nom
+':id_faq' => $id_faq
 ));
 } catch ( PDOException $ex) {
 die("Erreur lors de la requête SQL : ".$ex->getMessage());

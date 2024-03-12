@@ -1,7 +1,5 @@
-<?php 
-//démarre session 
-session_start();
-//
+<?php
+
 $submit = isset($_POST['submit']);
 
 ?>

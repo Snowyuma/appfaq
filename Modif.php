@@ -27,13 +27,23 @@
                 <h2>Modification de la FAQ</h2>
 
                <input type="text" value="Quels livres ont eu la plus grande influence sur toi?"></input></li>
-                    <input type="text" value="reponse"></input>
-
-                    
-
-                
+                    <input type="text" value="reponse"></input> 
             </div>
-
+            <?php
+$question='';
+$reponse='';
+$sql = "update faq set reponse=:reponse where question=:question";
+try {
+$sth = $dbh->prepare($sql);
+$sth->execute(array(
+':question' => $question,
+':reponse' => $reponse
+));
+} catch ( PDOException $ex) {
+die("Erreur lors de la requête SQL : ".$ex->getMessage());
+}
+echo "<p>".$sth->rowcount()." enregistrement(s) modifié(s)</p>";
+            ?>
 
             <div class="marginebuttom">
             <button class="bd3">Valider</button>

@@ -2,6 +2,9 @@
 session_start();
 include "include/liaison.php";
 $dbh=db_connect();
+$username = isset($_POST['username']) ? $_POST['username'] : '';
+$password = isset($_POST['password']) ? $_POST['password'] : '';
+$submit = isset($_POST['submit']);
 ?>
 <!DOCTYPE html>
 <html lang="fr">

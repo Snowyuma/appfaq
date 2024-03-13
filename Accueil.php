@@ -1,7 +1,7 @@
 <?php
 session_start();
-include "include/liaison.php"
-
+include "include/liaison.php";
+$dbh=db_connect();
 ?>
 <!DOCTYPE html>
 <html lang="fr">

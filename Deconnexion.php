@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "include/liaison.php";
+$dbh=db_connect();
 $submit = isset($_POST['submit']);
 
 ?>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "include/liaison.php";
+$dbh=db_connect();
 
 $id_faq='';
 $sql = "delete from faq where id_faq=";

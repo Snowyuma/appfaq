@@ -15,7 +15,6 @@
             <div class="parent-link">
                 
                 <a href="FAQ.php" class="social-links">FAQ</a>
-                <a href="Modif.php" class="social-links">Modification-Question</a>
                 <a href="Deconnexion.php" class="social-links">Déconnexion</a>
             </div>
         </nav>

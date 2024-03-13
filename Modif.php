@@ -29,6 +29,13 @@
                <input type="text" value="Quels livres ont eu la plus grande influence sur toi?"></input></li>
                     <input type="text" value="reponse"></input> 
             </div>
+            
+            <div class="marginebuttom">
+            <button class="bd3">Valider</button>
+            <button class="rest bd" type="rest">Réinitialiser</button>
+            </div>
+        </form>
+    </div>
             <?php
 $question='';
 $reponse='';
@@ -45,13 +52,6 @@ die("Erreur lors de la requête SQL : ".$ex->getMessage());
 echo "<p>".$sth->rowcount()." enregistrement(s) modifié(s)</p>";
             ?>
 
-            <div class="marginebuttom">
-            <button class="bd3">Valider</button>
-            
-            <button class="rest bd" type="rest">Réinitialiser</button>
-            </div>
-        </form>
-    </div>
 
     <div class="legal">
         <p>

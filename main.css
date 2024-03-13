@@ -171,6 +171,9 @@ button:hover {
     color: #2104FD;
     margin-bottom: 20%;
 }
+.signin:hover {
+    opacity: 0.8;
+}
 
 .signup {
     padding-left: 5px;
@@ -178,9 +181,12 @@ button:hover {
     cursor: pointer;
     color: #2104FD;
 }
-
-.signin:hover {
-    opacity: 0.8;
+.action_tab {
+    padding-left: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #2104FD;
+    margin-bottom: 1%;
 }
 
 /* Style Forme Grand barre en bas pour le blabla*/
@@ -189,8 +195,6 @@ button:hover {
     justify-content: center;
     padding-top: 3rem;
 }
-
-
 
 /* Style Emplacement boutton*/
 .marginebuttom {
@@ -344,10 +348,6 @@ input {
 }
 
 
-
-
-
-
 /* Style Profil*/
 h3 {
     text-align: center;
@@ -433,9 +433,6 @@ nav {
 
 }
 
-a {
-    color: white;
-}
 
 table,
 th,
@@ -529,4 +526,5 @@ td {
 
 a {
     text-decoration: none;
+    color: white;
 }

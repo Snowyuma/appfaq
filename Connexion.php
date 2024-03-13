@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -28,10 +29,10 @@
 
 
                 <label>Nom d'utilisateur</label> <br>
-                <input type="text" name="username"><br>
+                <input type="text" name="username" required><br>
 
                 <label>Mot de Passe</label> <br>
-                <input type="password" name="password"></a>
+                <input type="password" name="password" required></a>
                 <br>
 
                 <div class="btn">

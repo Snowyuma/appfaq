@@ -54,6 +54,16 @@
                     <button type="submit">S'inscrire</button>
                     <br>
                 </div>
+                </div>
+            <div class="bottom-form">
+                <div class="account">Vous avez dèja un compte ?</div>
+                <a href="Connexion.php" class="signup">Se Connecter</a>
+            </div>
+            <br>
+            <p>( * ) Champ Obligatoire</p>
+            <br>
+        </form>
+    </div>
                 <?php
 $submit = isset($_POST['submit']);
 $sql = "insert into user(pseudo,mdp,mail,id_ligue)
@@ -71,16 +81,7 @@ die("Erreur lors de la requête SQL : ".$ex->getMessage());
 }
 echo "<p>".$sth->rowcount()." enregistrement(s) ajouté(s)</p>";
                 ?>
-            </div>
-            <div class="bottom-form">
-                <div class="account">Vous avez dèja un compte ?</div>
-                <a href="Connexion.php" class="signup">Se Connecter</a>
-            </div>
-            <br>
-            <p>( * ) Champ Obligatoire</p>
-            <br>
-        </form>
-    </div>
+           
 
     <div class="legal">
         <p>

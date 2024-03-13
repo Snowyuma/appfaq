@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+include "include/liaison.php"
+?>
 <!DOCTYPE html>
 <html lang="fr">
 

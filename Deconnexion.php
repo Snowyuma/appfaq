@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+include "include/liaison.php";
 $submit = isset($_POST['submit']);
 
 ?>

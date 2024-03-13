@@ -1,3 +1,20 @@
+<?php
+session_start();
+include "include/liaison.php";
+
+ $sql = "select * from faq";
+ try {
+ $sth = $dbh->prepare($sql);
+$sth->execute(array(
+ ':question' => $question,
+ ':reponse' => $reponse
+ ));
+ $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+ } catch ( PDOException $ex) {
+ die("Erreur lors de la requête SQL : ".$ex->getMessage());
+ }
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -28,16 +45,27 @@
 
             <table>
                 <tr>
-                    <th class="p">Numéro</th>
+                    <th class="p">Numéro</th><!--vous étes sur que on met un numéro?-->
                     <th class="p">Auteur</th>
                     <th class="p">Question</th>
                     <th class="p">Réponse</th>
                     <th class="p">Action</th>
-                    
+                </tr> 
                     <?php
 
+                    foreach ($rows as $row){
+                    echo '<tr class="tr">';
+                    echo '<td class="p">'.$row["pseudo"].'</td>';
+                    echo '<td class="p">'.$row["question"].'</td>';
+                    echo '<td class="p">'.$row["reponse"].'</td>';
+                    if ($row['id_user']=2 ||$row['id_user']=3 ){
+                        echo '<td><a href="Supr.php" class="action_tab">Supprimer </a><br>';
+                        echo '<a href="Modif.php" class="action_tab">Modification</a></td>';
+                    }
+                    echo '</tr>';
+                 }
                     ?>
-                </tr>
+                
                 <tr class="tr">
                     <td class="p">1</td>
                     <td class="p">Jean-pierre</td>

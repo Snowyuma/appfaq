@@ -1,3 +1,4 @@
+ la page ne sert a rien
 <?php
 session_start(); // Démarre la session
 // Récupération du contenu du formulaire

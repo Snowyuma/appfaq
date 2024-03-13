@@ -1,5 +1,6 @@
 <?php
-$dsn = 'mysql:host=localhost;dbname=appfaq'; 
+function db_connect(){
+    $dsn = 'mysql:host=localhost;dbname=appfaq'; 
 $user = 'root';
 $password = '';
 try {
@@ -9,4 +10,6 @@ $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $ex) {
 die("Erreur lors de la connexion SQL : " . $ex->getMessage());
 }
+}
+
 ?>

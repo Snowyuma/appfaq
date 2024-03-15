@@ -1,10 +1,27 @@
 <?php
 session_start();
 include "include/liaison.php";
-$dbh=db_connect();
+$dbh = db_connect();
 $username = isset($_POST['username']) ? $_POST['username'] : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 $submit = isset($_POST['submit']);
+
+if ($submit) {
+    $sql = "select pseudo,mdp from user where pseudo=:pseudo and mdp=:mdp";
+    try {
+        $sth = $dbh->prepare($sql);
+        $sth->execute(array(
+            ':pseudo' => $username,
+            ':mdp' => $password   
+        ));
+        $row = $sth->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $ex) {
+        die("Erreur lors de la requête SQL : " . $ex->getMessage());
+    }
+}
+if ((count($row))!=0){
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -51,24 +68,24 @@ $submit = isset($_POST['submit']);
             <div class="bottom-form">
                 <div class="account">Vous n'avez pas de compte ?</div>
                 <a href="Inscription.php" class="signin">Inscription</a>
-                
+
             </div>
         </form>
     </div>
 
     <div class="legal">
         <p>
-            <h4>Projet AP2 site N2L FAQ</h4>
-            <h5>2023-2024<br>
-            BTS SIO: Service Informatique aux Organisations<br> 
+        <h4>Projet AP2 site N2L FAQ</h4>
+        <h5>2023-2024<br>
+            BTS SIO: Service Informatique aux Organisations<br>
             option SLAM: Solutions Locigielles Application Metier<br>
-            Créateurs:  <br>
+            Créateurs: <br>
             Chef de projet: Mathieu Fraux <br>
-            Developpeur principal: Lucas Rauzy  <br>
+            Developpeur principal: Lucas Rauzy <br>
             Developpeur secondaire: Colmagro Mathias </h5>
         </p>
     </div>
-    
+
     </form>
 </body>
 

@@ -1,7 +1,10 @@
 <?php
+//démarage de la session,
 session_start();
+//inclusion du fichier de fonction
 include "include/liaison.php";
-$dbh = db_connect();
+//connexion a la base de donnée
+$dbh=db_connect();
 $username = isset($_POST['username']) ? $_POST['username'] : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 $submit = isset($_POST['submit']);

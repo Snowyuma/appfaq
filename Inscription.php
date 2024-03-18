@@ -1,7 +1,10 @@
 <?php
+//démarage de la session,
 session_start();
+//inclusion du fichier de fonction
 include "include/liaison.php";
-$dbh = db_connect();
+//connexion a la base de donnée
+$dbh=db_connect();
 ?>
 <!DOCTYPE html>
 <html lang="fr">

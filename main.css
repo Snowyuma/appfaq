@@ -138,14 +138,14 @@ button:hover {
 }
 
 /* Style Boutton s'inscrire'*/
-.signin {
+.seconnecter {
     padding-left: 5px;
     text-decoration: none;
     cursor: pointer;
     color: #2104FD;
     margin-bottom: 20%;
 }
-.signin:hover {
+.seconnecter:hover {
     opacity: 0.8;
 }
 .bandeau {
@@ -159,7 +159,7 @@ button:hover {
 
 }
 
-.legal {
+.légale{
     text-align: center;
     text-rendering: geometricPrecision;
     margin-top: auto;
@@ -172,7 +172,7 @@ button:hover {
     box-shadow: rgba(50, 50, 93, 0, 25) 0px 13px 27px 5px, rgba(0, 0, 0, 0.3) 0px 8px 16px 8px;
     background-color: black;
 }
-.signup {
+.inscrire {
     padding-left: 5px;
     text-decoration: none;
     cursor: pointer;
@@ -233,11 +233,11 @@ label {
 }
 
 /* Style Text (Vous n'avez pas de compte ?)*/
-.no-account {
+.pas-de-compte {
     color: white;
 }
 
-.account {
+.compte {
     color: white;
 }
 
@@ -356,7 +356,7 @@ h3 {
 
 
 /* Style legal accueil*/
-.legalacc {
+.légaleacc {
     text-align: center;
     text-rendering: geometricPrecision;
     margin-top: auto;
@@ -383,24 +383,24 @@ h3 {
     align-items: center;
 }
 
-.social-links,
+.lien-social,
 .msg {
     text-decoration: none;
 }
 
-.parent-link {
+.lien-parent{
     margin-right: 0;
     margin-bottom: 3%;
 }
 
-.social-links {
+.lien-social {
     padding: 0 2.5rem;
     margin: 0;
     color: white;
     font-weight: 500;
 }
 
-.social-links:hover {
+.lien-social:hover {
     opacity: 0.8;
 }
 

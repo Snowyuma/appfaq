@@ -36,10 +36,10 @@ echo "<p>".$sth->rowcount()." enregistrement(s) ajouté(s)</p>";
     <header>
         <nav class="container">
 
-            <div class="parent-link">
+            <div class="lien-parent">
                 
-                <a href="FAQ.php" class="social-links">FAQ</a>
-                <a href="Deconnexion.php" class="social-links">Déconnexion</a>
+                <a href="FAQ.php" class="lien-social">FAQ</a>
+                <a href="Deconnexion.php" class="lien-social">Déconnexion</a>
             </div>
         </nav>
     </header>
@@ -55,7 +55,7 @@ echo "<p>".$sth->rowcount()." enregistrement(s) ajouté(s)</p>";
         </form>
     </div>
 
-    <div class="legal">
+    <div class="légale">
         <p>
             <h4>Projet AP2 site N2L FAQ</h4>
             <h5>2023-2024<br>

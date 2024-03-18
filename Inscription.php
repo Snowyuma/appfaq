@@ -18,10 +18,10 @@ $dbh = db_connect();
     <header>
         <nav class="container">
 
-            <div class="parent-link">
-                <a href="Accueil.php" class="social-links">Accueil</a>
-                <a href="Connexion.php" class="social-links">Connexion</a>
-                <a href="#" class="social-links">Inscription</a>
+            <div class="lien-parent">
+                <a href="Accueil.php" class="lien-social">Accueil</a>
+                <a href="Connexion.php" class="lien-social">Connexion</a>
+                <a href="#" class="lien-social">Inscription</a>
                 
             </div>
         </nav>
@@ -61,8 +61,8 @@ $dbh = db_connect();
                 </div>
                 </div>
             <div class="bottom-form">
-                <div class="account">Vous avez dèja un compte ?</div>
-                <a href="Connexion.php" class="signup">Se Connecter</a>
+                <div class="Compte">Vous avez dèja un compte ?</div>
+                <a href="Connexion.php" class="sinscrire">Se Connecter</a>
             </div>
             <br>
             <p>( * ) Champ Obligatoire</p>
@@ -88,7 +88,7 @@ echo "<p>".$sth->rowcount()." enregistrement(s) ajouté(s)</p>";
                 ?>
            
 
-    <div class="legal">
+    <div class="légale">
         <p>
             <h4>Projet AP2 site N2L FAQ</h4>
             <h5>2023-2024<br>

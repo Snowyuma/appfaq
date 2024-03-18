@@ -37,10 +37,10 @@ if ((count($row))!=0){
     <header>
         <nav class="container">
 
-            <div class="parent-link">
-                <a href="Accueil.php" class="social-links">Accueil</a>
-                <a href="#" class="social-links">Connexion</a>
-                <a href="Inscription.php" class="social-links">Inscription</a>
+            <div class="lien-parent">
+                <a href="Accueil.php" class="lien-social">Accueil</a>
+                <a href="#" class="lien-social">Connexion</a>
+                <a href="Inscription.php" class="lien-social">Inscription</a>
 
             </div>
         </nav>
@@ -66,14 +66,14 @@ if ((count($row))!=0){
                 </div>
             </div>
             <div class="bottom-form">
-                <div class="account">Vous n'avez pas de compte ?</div>
-                <a href="Inscription.php" class="signin">Inscription</a>
+                <div class="pas-de-compte">Vous n'avez pas de compte ?</div>
+                <a href="Inscription.php" class="seconnecter">Inscription</a>
 
             </div>
         </form>
     </div>
 
-    <div class="legal">
+    <div class="légale">
         <p>
         <h4>Projet AP2 site N2L FAQ</h4>
         <h5>2023-2024<br>

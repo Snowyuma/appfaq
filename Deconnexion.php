@@ -21,12 +21,12 @@ $submit = isset($_POST['submit']);
     <header>
         <nav class="container">
 
-            <div class="parent-link">
+            <div class="lien-parent">
                 
-                <a href="FAQ.php" class="social-links">FAQ</a>
-                <a href="ajoutQuestion.php" class="social-links">Ajout-Question</a>
-                <a href="modif.php" class="social-links">Modification-Question</a>
-                <a href="#" class="social-links">Déconnexion</a>
+                <a href="FAQ.php" class="lien-social">FAQ</a>
+                <a href="ajoutQuestion.php" class="lien-social">Ajout-Question</a>
+                <a href="modif.php" class="lien-social">Modification-Question</a>
+                <a href="#" class="lien-social">Déconnexion</a>
             </div>
         </nav>
     </header>
@@ -62,7 +62,7 @@ if ($submit){
   ?>
             
 
-    <div class="legal">
+    <div class="légale">
         <p>
             <h4>Projet AP2 site N2L FAQ</h4>
             <h5>2023-2024<br>

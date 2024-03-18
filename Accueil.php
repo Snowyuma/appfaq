@@ -27,7 +27,7 @@ $dbh=db_connect();
     </div>
     </form>
 </body>
-<div class="legalacc">
+<div class="légaleacc">
         <p>
             <h4>Projet AP2 site N2L FAQ</h4>
             <h5>2023-2024<br>

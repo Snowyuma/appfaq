@@ -5,29 +5,18 @@ if (!isset($_SESSION['user_id'])) {
     exit(); 
 }
 
-// Inclusion du fichier de fonction
 include "include/liaison.php";
-
-// Connexion à la base de données
 $dbh = db_connect();
-
-// Vérification si le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérification si la question est présente dans le formulaire
     if(isset($_POST['Question']) && !empty($_POST['Question'])) {
-        // Récupération des données du formulaire
         $question = $_POST['Question'];
-        // Date de la question (date/heure système)
         $dat_question = date("Y-m-d H:i:s");
-        // Identifiant de l'utilisateur (récupéré depuis la session)
         $id_user = $_SESSION['user_id'];
 
         // Requête SQL pour insérer la question dans la base de données
         $sql = "INSERT INTO faq(question, dat_question, id_user) VALUES (:question, :dat_question, :id_user)";
         try {
-            // Préparation de la requête SQL
             $sth = $dbh->prepare($sql);
-            // Exécution de la requête avec les paramètres
             $sth->execute(array(
                 ':question' => $question,
                 ':dat_question' => $dat_question,

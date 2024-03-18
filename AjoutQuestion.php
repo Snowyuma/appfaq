@@ -1,10 +1,8 @@
 <?php
-// Vérification si l'utilisateur est connecté (la session PHP existe)
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    // Redirection vers la page de connexion si l'utilisateur n'est pas connecté
     header("Location: login.php");
-    exit(); // Arrêt du script pour éviter toute exécution supplémentaire
+    exit(); 
 }
 
 // Inclusion du fichier de fonction

@@ -5,6 +5,7 @@ session_start();
 include "include/liaison.php";
 //connexion a la base de donnée
 $dbh=db_connect();
+
 $submit = isset($_POST['submit']);
 
 ?>
@@ -37,20 +38,14 @@ $submit = isset($_POST['submit']);
 
         <form action=<?php $_SERVER["PHP_SELF"] ?> method="POST" class="sub-formdeco">
 
-        <form action="#" class="sub-formdeco">
-
             <div class="upper-form">
                 <h2>Déconnexion de la FAQ</h2>
                 <p class="p"> Voulez-vous vraiment vous déconneter ?</p>
             </div>
 
             <div class="marginebuttom">
-           
                 <button class="bd1"><a href="FAQ.php" class="p">Ne pas se déconneter</a></button> 
-                
                 <button class="bd2 p" type="submit" name="submit">Se déconneter</button>
-          
-
             </div>
         </form>
     </div>
@@ -59,12 +54,11 @@ if ($submit){
     session_unset(); // Détruit toutes les variables de session
     session_destroy(); // Détruit la session (mais pas le cookie)
     setcookie(session_name(),'',-1,'/'); // Détruit le cookie de session
-    header("Location: accueil.php"); // Revient à la page d'accueil
+    header("Location: Accueil.php"); // Revient à la page d'accueil
     exit();
     }
   ?>
             
-
     <div class="légale">
         <p>
             <h4>Projet AP2 site N2L FAQ</h4>

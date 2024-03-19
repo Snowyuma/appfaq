@@ -7,7 +7,7 @@ include "include/liaison.php";
 $dbh=db_connect();
 
 $id_faq='';
-$sql = "delete from faq where id_faq=";
+$sql = "DELETE FROM `faq` where `faq`.`id_faq` = 1 id_faq=:id_faq";
 try {
 $sth = $dbh->prepare($sql);
 $sth->execute(array(
@@ -43,7 +43,7 @@ echo "<p>".$sth->rowcount()." enregistrement(s) supprimé(s)</p>";
         </nav>
     </header>
     <div class="form">
-        <form action="#" class="sub-form">
+        <form action=<?php $_SERVER["PHP_SELF"] ?> method="POST" class="sub-form">
             <div class="upper-form">
                 <h2>Suppression de question de la FAQ</h2>
                 </div>

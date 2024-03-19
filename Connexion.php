@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Vérification du mot de passe avec password_verify
                 if (password_verify($password, $row['mdp'])) {
                     $_SESSION['user'] = $row;
-                    header("Location: page_securisee.php");
+                    header("Location: FAQ.php");
                     exit();
                 } else {
                     echo "Mot de passe incorrect. Veuillez réessayer.";

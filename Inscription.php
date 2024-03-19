@@ -62,11 +62,11 @@ try {
                 <h2>Inscription à la FAQ</h2>
 
                 <label>Nom d'utilisateur*</label> <br>
-                <input type="text" name="pseudo"> <br>
+                <input type="text" name="pseudo" required> <br>
 
 
                 <label>Adresse Mail*</label> <br>
-                <input type="email" name="email"> <br>
+                <input type="email" name="email" required> <br>
 
                 <label>Ligue*</label> <br>
                 <select name="ligue" id="ligue">
@@ -78,10 +78,10 @@ try {
                 <br>
 
                 <label>Mot de Passe*</label> <br>
-                <input type="password" name="password1"> <br>
+                <input type="password" name="password1" required> <br>
 
                 <label>Retaper le Mot de Passe*</label> <br>
-                <input type="password" name="password2"> <br>
+                <input type="password" name="password2" required> <br>
 
                 <div class="btn">
                     <input type="submit" name="submit">S'inscrire</input>
@@ -127,7 +127,7 @@ if ($submit) {
         } catch (PDOException $ex) {
             die("Erreur lors de la requête SQL : " . $ex->getMessage());
         }
-        header("Location: FAQ.php"); // va a la FAQ
+        header("Location: Connexion.php"); // va a la connexion
         exit();
     }
 }

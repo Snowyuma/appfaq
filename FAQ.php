@@ -2,21 +2,23 @@
 session_start();
 include "include/liaison.php";
 $dbh = db_connect();
-
+/*
 if (!isset($_SESSION['user_id'])) {
     header("Location: Connexion.php");
     exit();
 }
+*/
 
-$user_id = $_SESSION['user_id'];
-$user_type = $_SESSION['user_type'];
+//$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+$user_type = isset ($_SESSION['user_type'])? $_SESSION['user_type'] : '';
 if ($user_id = 1) {
-    $sql = "SELECT * FROM faq WHERE id_usertype=:idusertype" ;
+    $sql = "SELECT * FROM faq WHERE id_user=:id_user" ;
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(
-            ':user_id' => $user_id,
-            ':idusertype' =>$id_usertype
+            ':id_user' => $user_id,
+            ':user_type' =>$user_type
         ));
         $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $ex) {

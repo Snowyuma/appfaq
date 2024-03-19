@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `appfaq`
 --
-
+CREATE DATABASE IF NOT EXISTS `appfaq` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `appfaq`;
 -- --------------------------------------------------------
 
 --
@@ -35,6 +36,17 @@ CREATE TABLE `faq` (
   `dat_reponse` datetime NOT NULL,
   `id_user` bigint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+--
+-- Déchargement des données de la table `ligue`
+--
+INSERT INTO faq (question, reponse, dat_question, dat_reponse, id_user)
+VALUES
+('Comment puis-je me connecter à mon compte?', 'Pour vous connecter à votre compte, vous devez saisir votre adresse e-mail et votre mot de passe dans les champs appropriés.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+('Comment puis-je modifier mes informations personnelles?', 'Pour modifier vos informations personnelles, accédez à votre profil et cliquez sur "Modifier".', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2),
+('Comment puis-je supprimer mon compte?', 'Pour supprimer votre compte, accédez à votre profil et cliquez sur "Supprimer".', CURRENT_TIMESTAMP, NULL, 3),
+('Comment puis-je signaler un problème ou un bug?', 'Pour signaler un problème ou un bug, veuillez remplir le formulaire de contact et décrire le problème ou le bug rencontré.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2),
+('Comment puis-je me déconnecter de mon compte?', 'Pour vous déconnecter de votre compte, cliquez sur le bouton "Déconnexion" en haut à droite de la page.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+('Comment puis-je réinitialiser mon mot de passe?', 'Pour réinitialiser votre mot de passe, cliquez sur "Mot de passe oublié" lors de la connexion.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3);
 
 -- --------------------------------------------------------
 

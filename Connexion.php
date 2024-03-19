@@ -4,22 +4,22 @@ include "include/liaison.php";
 $dbh = db_connect();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
-    $motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
+    $username = isset($_POST['username']) ? $_POST['username'] : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
 
     if (empty($username) || empty($password)) {
         echo "Nom d'utilisateur et mot de passe sont obligatoires.";
     } else {
-        $sql = "SELECT pseudo, mdp FROM user WHERE pseudo=:pseudo and mdp=mdp";
+        $sql = "SELECT pseudo, mdp FROM user WHERE pseudo=:pseudo";
         try {
             $sth = $dbh->prepare($sql);
-            $sth->execute(array(':mdp' =>$motdepasse));
+            $sth->execute(array(':pseudo' => $username));
             $row = $sth->fetch(PDO::FETCH_ASSOC);
 
             // Vérification si l'utilisateur existe dans la base de données
             if ($row) {
                 // Vérification du mot de passe avec password_verify
-                if (password_verify($motdepasse, $row['mdp'])) {
+                if (password_verify($password, $row['mdp'])) {
                     $_SESSION['user'] = $row;
                     header("Location: FAQ.php");
                     exit();

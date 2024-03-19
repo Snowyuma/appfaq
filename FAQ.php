@@ -3,7 +3,7 @@ session_start();
 include "include/liaison.php";
 $dbh = db_connect();
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: Connexion.php");
     exit(); 
 }
 $user_id = $_SESSION['user_id'];

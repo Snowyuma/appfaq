@@ -12,8 +12,18 @@ if (!isset($_SESSION['user_id'])) {
 //$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
 $user_type = isset ($_SESSION['user_type'])? $_SESSION['user_type'] : '';
-for ($i = 0; $i<= 5;$i ++) {
-if ($user_id = $i) {
+
+if ($id_ligue=5) {
+    $sql = "SELECT * FROM faq, user WHERE faq.id_user = user.id_user " ;
+    try {
+        $sth = $dbh->prepare($sql);
+        $sth->execute();
+        $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $ex) {
+        die("Erreur lors de la requête SQL : " . $ex->getMessage());
+    }   
+}
+else{
     $sql = "SELECT * FROM faq, user WHERE faq.id_user = user.id_user and faq.id_user=:id_user" ;
     try {
         $sth = $dbh->prepare($sql);
@@ -24,7 +34,6 @@ if ($user_id = $i) {
     } catch (PDOException $ex) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
-}
 }
 
 ?>

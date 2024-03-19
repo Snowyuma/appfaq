@@ -12,18 +12,19 @@ if (!isset($_SESSION['user_id'])) {
 //$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 
 $user_type = isset ($_SESSION['user_type'])? $_SESSION['user_type'] : '';
-if ($user_id = 1) {
-    $sql = "SELECT * FROM faq WHERE id_user=:id_user" ;
+for ($i = 0; $i<= 5;$i ++) {
+if ($user_id = $i) {
+    $sql = "SELECT * FROM faq, user WHERE faq.id_user = user.id_user and faq.id_user=:id_user" ;
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(
             ':id_user' => $user_id,
-            ':user_type' =>$user_type
         ));
         $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $ex) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
+}
 }
 
 ?>
@@ -60,7 +61,7 @@ if ($user_id = 1) {
             <table>
                 <tr>
                     <!-- Entêtes de colonne -->
-                    <th class="p">Numéro</th>
+                   
                     <th class="p">Auteur</th>
                     <th class="p">Question</th>
                     <th class="p">Réponse</th>
@@ -75,8 +76,8 @@ if ($user_id = 1) {
                     echo '<td class="p">' . $row["reponse"] . '</td>';
                     // Vérifie si l'utilisateur est l'administrateur ou le super administrateur pour afficher les liens de modification/suppression
                     if ($user_id == 1 || $user_id == 2) {
-                        echo '<td><a href="Supr.php?id=' . $row['id'] . '" class="action_tab">Supprimer </a><br>';
-                        echo '<a href="Modif.php?id=' . $row['id'] . '" class="action_tab">Modification</a></td>';
+                        echo '<td><a href="Supr.php?id=' . $row['id_faq'] . '" class="action_tab">Supprimer </a><br>';
+                        echo '<a href="Modif.php?id=' . $row['id_faq'] . '" class="action_tab">Modification</a></td>';
                     }
                     echo '</tr>';
                 }

@@ -243,10 +243,15 @@ label {
 
 /* Style Texte*/
 .p {
-    color: black;
+    color: white;
     text-align: center;
     text-decoration: none;
-
+}
+/* Style Texte*/
+p {
+    color: white;
+    text-align: center;
+    text-decoration: none;
 }
 
 .bd {

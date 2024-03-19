@@ -2,21 +2,28 @@
 session_start();
 include "include/liaison.php";
 $dbh = db_connect();
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: Connexion.php");
-    exit(); 
+    exit();
 }
-$user_id = $_SESSION['user_id'];
-$sql = "SELECT * FROM faq WHERE id_user = :user_id OR id_user = 1";
 
-try {
-    $sth = $dbh->prepare($sql);
-    $sth->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-    $sth->execute();
-    $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $ex) {
-    die("Erreur lors de la requête SQL : " . $ex->getMessage());
+$user_id = $_SESSION['user_id'];
+$user_type = $_SESSION['user_type'];
+if ($user_id = 1) {
+    $sql = "SELECT * FROM faq WHERE id_usertype=:idusertype" ;
+    try {
+        $sth = $dbh->prepare($sql);
+        $sth->execute(array(
+            ':user_id' => $user_id,
+            ':idusertype' =>$id_usertype
+        ));
+        $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $ex) {
+        die("Erreur lors de la requête SQL : " . $ex->getMessage());
+    }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -56,7 +63,7 @@ try {
                     <th class="p">Question</th>
                     <th class="p">Réponse</th>
                     <th class="p">Action</th>
-                </tr> 
+                </tr>
                 <?php
                 // Boucle résultats de la requête SQL et affiche chaque question et réponse dans des lignes de tableau
                 foreach ($rows as $row) {
@@ -81,14 +88,14 @@ try {
     <!-- Pied de page -->
     <div class="légale">
         <p>
-            <h4>Projet AP2 site N2L FAQ</h4>
-            <h5>2023-2024<br>
-                BTS SIO: Service Informatique aux Organisations<br>
-                option SLAM: Solutions Locigielles Application Metier<br>
-                Créateurs: <br>
-                Chef de projet: Mathieu Fraux <br>
-                Developpeur principal: Lucas Rauzy <br>
-                Developpeur secondaire: Colmagro Mathias </h5>
+        <h4>Projet AP2 site N2L FAQ</h4>
+        <h5>2023-2024<br>
+            BTS SIO: Service Informatique aux Organisations<br>
+            option SLAM: Solutions Locigielles Application Metier<br>
+            Créateurs: <br>
+            Chef de projet: Mathieu Fraux <br>
+            Developpeur principal: Lucas Rauzy <br>
+            Developpeur secondaire: Colmagro Mathias </h5>
         </p>
     </div>
 </body>

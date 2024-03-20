@@ -21,7 +21,7 @@ if ($id_ligue = 5) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
 } else {
-    $sql = "SELECT * FROM faq, user WHERE faq.id_user = user.id_user and faq.id_user=:id_user";
+    $sql = "SELECT * FROM faq, user WHERE faq.id_ligue=:id_ligue";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(

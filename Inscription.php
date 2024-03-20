@@ -119,7 +119,7 @@ try {
                 <input type="password" name="password2" required> <br>
 
                 <div class="btn">
-                    <input type="submit" name="submit" value="s'inscrire"></input>
+                    <button type="submit" name="submit">s'inscrire</button>
                     <br>
                 </div>
             </div>

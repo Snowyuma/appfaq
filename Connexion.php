@@ -19,21 +19,23 @@ if ($submit) {
                 ':mdp' => $motdepasse,
                 ':pseudo' => $pseudo
             ));
-            $row = $sth->fetch(PDO::FETCH_ASSOC);
+            $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
 
             // Vérification si l'utilisateur existe dans la base de données
-            if ($row) {
+            //if (isset($row)) {
+             //   print_r($row['mdp']);
+                
                 // Vérification du mot de passe avec password_verify
-                if (password_verify($motdepasse, $row['mdp'])) {
-                    $_SESSION['user'] = $row;
+                if (PASSWORD_verify($motdepasse, $rows['mdp'])) {
+                    $_SESSION['user'] = $rows['pseudo'];
                     header("Location: FAQ.php");
                     exit();
                 } else {
                     echo "mot de passe invalide";
                 }
-            } else {
-                echo "Nom d'utilisateur incorrect. Veuillez réessayer.";
-            }
+            //} else {
+               // echo "Nom d'utilisateur incorrect. Veuillez réessayer.";
+            //}
         } catch (PDOException $ex) {
             die("Erreur lors de la requête SQL : " . $ex->getMessage());
         }

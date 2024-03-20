@@ -13,6 +13,12 @@ $id_ligue = isset($_POST['ligue']) ? $_POST['ligue'] : '';
 $mdp1 = isset($_POST['password1']) ? $_POST['password1'] : '';
 $mdp2 = isset($_POST['password2']) ? $_POST['password2'] : '';
 
+if(isset($mdp1)){
+$mdp1=password_hash($mdp1, PASSWORD_DEFAULT);
+}
+if(isset($mdp2)){
+    $mdp2=password_hash($mdp2, PASSWORD_DEFAULT);
+    }
 
 $sql = "SELECT pseudo FROM user WHERE pseudo=:pseudo ";
 try {
@@ -113,13 +119,14 @@ if ($submit) {
     }
     
     else {
+       $mdphash = password_hash($mdp1, PASSWORD_DEFAULT);
         $sql = 'insert into `user` (pseudo,mdp,mail,id_usertype,id_ligue)
         VALUES (:pseudo,:mdp,:mail,:id_ligue,:id_usertype)';
         try {
             $sth = $dbh->prepare($sql);
             $sth->execute(array(
                 ':pseudo' => $pseudo,
-                ':mdp' => $mdp1,
+                ':mdp' => $mdphash,
                 ':mail' => $mail,
                 ':id_ligue' => $id_ligue,
                 ":id_usertype" => 1,

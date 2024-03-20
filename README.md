@@ -11,13 +11,6 @@ Colmagro Mathias
 Rauzy Lucas
 LOT 1:
 logs utilisateurs de base:
-Username: aa
-mdp: aa
 
-
-Username: bb
-mdp: bb
-
-
-Username: cc
-mdp: cc
+username zz
+mdp zz

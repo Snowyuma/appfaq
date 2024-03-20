@@ -84,7 +84,7 @@ else{
                     echo '<td class="p">' . $row["question"] . '</td>';
                     echo '<td class="p">' . $row["reponse"] . '</td>';
                     // Vérifie si l'utilisateur est l'administrateur ou le super administrateur pour afficher les liens de modification/suppression
-                    if ($user_id == 1 || $user_id == 2) {
+                    if ($user_id == 3 || $user_id == 2) {
                         echo '<td><a href="Supr.php?id=' . $row['id_faq'] . '" class="action_tab">Supprimer </a><br>';
                         echo '<a href="Modif.php?id=' . $row['id_faq'] . '" class="action_tab">Modification</a></td>';
                     }

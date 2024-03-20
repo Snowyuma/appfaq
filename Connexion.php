@@ -2,31 +2,35 @@
 session_start();
 include "include/liaison.php";
 $dbh = db_connect();
-    $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
-    $submit= isset($_POST['submit']);
-    $motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
-    if ($submit){
-        
+$submit = isset($_POST['submit']);
+$pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
+$motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
+
+if ($submit) {
+
     if (empty($pseudo) || empty($motdepasse)) {
         echo "Nom d'utilisateur et mot de passe sont obligatoires.";
     } else {
         $sql = "SELECT pseudo, mdp FROM user WHERE pseudo=:pseudo and mdp=:mdp";
         try {
             $sth = $dbh->prepare($sql);
-            $sth->execute(array(':mdp' =>$motdepasse,
-                                ':pseudo' => $pseudo));
+            $sth->execute(array(
+                ':mdp' => $motdepasse,
+                ':pseudo' => $pseudo
+            ));
             $row = $sth->fetch(PDO::FETCH_ASSOC);
 
             // Vérification si l'utilisateur existe dans la base de données
             if ($row) {
                 // Vérification du mot de passe avec password_verify
-               if (password_verify($motdepasse, $row['mdp'])) {             
+                if (password_verify($motdepasse, $row['mdp'])) {
                     $_SESSION['user'] = $row;
                     header("Location: FAQ.php");
-                    exit();} else {
-                        echo "mot de passe invalide";
-                    }
+                    exit();
+                } else {
+                    echo "mot de passe invalide";
+                }
             } else {
                 echo "Nom d'utilisateur incorrect. Veuillez réessayer.";
             }
@@ -34,7 +38,7 @@ $dbh = db_connect();
             die("Erreur lors de la requête SQL : " . $ex->getMessage());
         }
     }
-    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -77,14 +81,14 @@ $dbh = db_connect();
     </div>
 
     <div class="légale">
-            <h4>Projet AP2 site N2L FAQ</h4>
-            <h5>2023-2024<br>
-                BTS SIO: Service Informatique aux Organisations<br>
-                option SLAM: Solutions Logicielles Applications Métiers<br>
-                Créateurs: <br>
-                Chef de projet: Mathieu Fraux <br>
-                Développeur principal: Lucas Rauzy <br>
-                Développeur secondaire: Colmagro Mathias </h5>
+        <h4>Projet AP2 site N2L FAQ</h4>
+        <h5>2023-2024<br>
+            BTS SIO: Service Informatique aux Organisations<br>
+            option SLAM: Solutions Logicielles Applications Métiers<br>
+            Créateurs: <br>
+            Chef de projet: Mathieu Fraux <br>
+            Développeur principal: Lucas Rauzy <br>
+            Développeur secondaire: Colmagro Mathias </h5>
     </div>
 </body>
 

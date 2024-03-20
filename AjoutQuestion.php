@@ -1,12 +1,12 @@
 <?php
 session_start();
+
+include "include/liaison.php";
+$dbh = db_connect();
 if (!isset($_SESSION['user_id'])) {
     header("Location: Connexion.php");
     exit(); 
 }
-
-include "include/liaison.php";
-$dbh = db_connect();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['Question']) && !empty($_POST['Question'])) {
         $question = $_POST['Question'];

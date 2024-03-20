@@ -3,10 +3,6 @@ session_start();
 include "include/liaison.php";
 $dbh = db_connect();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: Connexion.php");
-    exit();
-}
 
 $id_usertype = isset($_SESSION['id_usertype']) ? $_SESSION['id_usertype'] : '';
 $id_ligue = isset($_SESSION['id_ligue']) ? $_SESSION['id_ligue'] : '';

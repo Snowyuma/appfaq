@@ -9,9 +9,6 @@ $motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
 
 if ($submit) {
-    if (empty($pseudo) || empty($motdepasse)) {
-        echo "Nom d'utilisateur et mot de passe sont obligatoires.";
-    } else {
         $sql_pseudo = "SELECT pseudo FROM user WHERE pseudo=:pseudo";
         try {
             $sth = $dbh->prepare($sql_pseudo);
@@ -22,7 +19,7 @@ if ($submit) {
         } catch (PDOException $ex) {
             die("Erreur lors de la requête SQL : " . $ex->getMessage());
         }
-        
+
        if(count($resultat_pseudo) > 0)
        {
         $sql_mdp = "SELECT mdp FROM user WHERE pseudo=:pseudo";
@@ -38,18 +35,12 @@ if ($submit) {
 
             if($resultat_mdp && password_verify($motdepasse, $resultat_mdp['mdp']))
             {
-
-                
-
-                echo "ca marche !";
-
-                
-                /*echo "<p>Connecté</p>";
+                echo "<p>Connecté</p>";
                 $_SESSION['pseudo'] = $row['pseudo'];
                 $_SESSION['id_usertype'] = $row['id_usertype'];
                 $_SESSION['id_ligue'] = $row['id_ligue'];
                 header("Location: FAQ.php");
-                exit();*/
+                exit();
             }
             else{
                 echo "mot de passe incorrect";
@@ -60,7 +51,9 @@ if ($submit) {
         echo "Identifiant inconnu !";
        }
     }
-}
+
+
+
 
 ?>
         <!DOCTYPE html>

@@ -12,7 +12,7 @@ if ($submit) {
     if (empty($pseudo) || empty($motdepasse)) {
         echo "Nom d'utilisateur et mot de passe sont obligatoires.";
     } else {
-        $sql = "SELECT pseudo, mdp FROM user WHERE pseudo=:pseudo and mdp=:mdp";
+        $sql = "SELECT pseudo, mdp, id_ligue, id_usertype FROM user WHERE pseudo=:pseudo and mdp=:mdp";
         try {
             $sth = $dbh->prepare($sql);
             $sth->execute(array(

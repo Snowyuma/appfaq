@@ -21,9 +21,7 @@ $dbh = db_connect();
             // Vérification si l'utilisateur existe dans la base de données
             if ($row) {
                 // Vérification du mot de passe avec password_verify
-               // if (password_verify($motdepasse, $row['mdp'])) 
-               
-                   if($motdepasse== $row ['mdp']){              
+               if (password_verify($motdepasse, $row['mdp'])) {             
                     $_SESSION['user'] = $row;
                     header("Location: FAQ.php");
                     exit();} else {

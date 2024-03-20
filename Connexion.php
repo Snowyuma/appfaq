@@ -30,9 +30,8 @@ if ($submit) {
             ));
             $resultat_mdp = $sth->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $ex) {
-            
             die("Erreur lors de la requête SQL : " . $ex->getMessage());
-
+        }
             if($resultat_mdp && password_verify($motdepasse, $resultat_mdp['mdp']))
             {
                 echo "<p>Connecté</p>";
@@ -46,7 +45,7 @@ if ($submit) {
                 echo "mot de passe incorrect";
             }
         }
-       }
+      
        else {
         echo "Identifiant inconnu !";
        }

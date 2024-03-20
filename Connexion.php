@@ -12,57 +12,49 @@ if ($submit) {
     if (empty($pseudo) || empty($motdepasse)) {
         echo "Nom d'utilisateur et mot de passe sont obligatoires.";
     } else {
-        $sql = "SELECT pseudo, mdp, id_ligue, id_usertype FROM user WHERE pseudo=:pseudo and mdp=:mdp";
+        $sql = "SELECT * FROM user WHERE pseudo=:pseudo ";
         try {
             $sth = $dbh->prepare($sql);
             $sth->execute(array(
-                ':mdp' => $motdepasse,
                 ':pseudo' => $pseudo
             ));
-            $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
-
-            // Vérification si l'utilisateur existe dans la base de données
-            //if (isset($row)) {
-             //   print_r($row['mdp']);
-                
-                // Vérification du mot de passe avec password_verify
-                if (PASSWORD_verify($motdepasse, $rows['mdp'])) {
-                    $_SESSION['user'] = $rows['pseudo'];
-                    header("Location: FAQ.php");
-                    exit();
-                } else {
-                    echo "mot de passe invalide";
-                }
-            //} else {
-               // echo "Nom d'utilisateur incorrect. Veuillez réessayer.";
-            //}
+            $row = $sth->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $ex) {
             die("Erreur lors de la requête SQL : " . $ex->getMessage());
         }
+       if ($row && password_verify($motdepasse, $row['mdp'])) {
+        $_SESSION['pseudo'] = $row['pseudo'];
+        $_SESSION['id_usertype'] = $row['id_usertype'];
+        header("Location: FAQ.php");
+        exit();
+    } else {
+        $message = "username et/ou password invalide";
+    }
+   
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="fr">
+        <!DOCTYPE html>
+        <html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
-    <link rel="stylesheet" href="main.css">
-</head>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Connexion</title>
+            <link rel="stylesheet" href="main.css">
+        </head>
 
-<body>
-    <header>
-        <nav class="container">
-            <div class="lien-parent">
-                <a href="Accueil.php" class="lien-social">Accueil</a>
-                <a href="#" class="lien-social">Connexion</a>
-                <a href="Inscription.php" class="lien-social">Inscription</a>
-            </div>
-        </nav>
-    </header>
-
+        <body>
+            <header>
+                <nav class="container">
+                    <div class="lien-parent">
+                        <a href="Accueil.php" class="lien-social">Accueil</a>
+                        <a href="#" class="lien-social">Connexion</a>
+                        <a href="Inscription.php" class="lien-social">Inscription</a>
+                    </div>
+                </nav>
+            </header>
+      
     <div class="form">
         <form action="Connexion.php" method="POST" class="sub-form">
             <div class="upper-form">
@@ -92,6 +84,6 @@ if ($submit) {
             Développeur principal: Lucas Rauzy <br>
             Développeur secondaire: Colmagro Mathias </h5>
     </div>
-</body>
+        </body>
 
-</html>
+        </html>

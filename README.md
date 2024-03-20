@@ -14,3 +14,5 @@ logs utilisateurs de base:
 
 username zz
 mdp zz
+username ee
+mdp ee

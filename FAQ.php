@@ -54,7 +54,7 @@ if ($id_ligue = 5) {
 
     <!-- Formulaire de FAQ -->
     <div class="formfaq">
-        <form action="#" class="sub-formfaq">
+    <form action="<?php $_SERVER["PHP_SELF"] ?>" class="sub-formfaq">
             <div class="upper-form">
                 <h2>FAQ</h2>
             </div>
@@ -70,6 +70,14 @@ if ($id_ligue = 5) {
                     <th class="p">Action</th>
                 </tr>
                 <?php
+                $sql = "select * from user, faq";
+                try {
+                $sth = $dbh->prepare($sql);
+                $sth->execute(array());
+                $rows = $sth->fetchall(PDO::FETCH_ASSOC);
+                } catch (PDOException $ex) {
+                die("Erreur lors de la requête SQL : " . $ex->getMessage());
+                }
                 // Boucle résultats de la requête SQL et affiche chaque question et réponse dans des lignes de tableau
                 foreach ($rows as $row) {
                     echo '<tr class="tr">';
@@ -77,7 +85,7 @@ if ($id_ligue = 5) {
                     echo '<td class="p">' . $row["question"] . '</td>';
                     echo '<td class="p">' . $row["reponse"] . '</td>';
                     // Vérifie si l'utilisateur est l'administrateur ou le super administrateur pour afficher les liens de modification/suppression
-                    if ($user_id == 3 || $user_id == 2) {
+                    if ($id_usertype == 3 || $id_usertype == 2) {
                         echo '<td><a href="Supr.php?id=' . $row['id_faq'] . '" class="action_tab">Supprimer </a><br>';
                         echo '<a href="Modif.php?id=' . $row['id_faq'] . '" class="action_tab">Modification</a></td>';
                     }

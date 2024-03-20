@@ -87,7 +87,7 @@ if ($submit) {
                 <label>Mot de Passe</label> <br>
                 <input type="password" name="mdp" required><br>
                 <div class="btn">
-                    <input type="submit" name="submit" class="buttonco" value="Se Connecter">
+                    <button type="submit" name="submit" class="buttonco">Se Connecter</button>
                 </div>
             </div>
             <div class="bottom-form">

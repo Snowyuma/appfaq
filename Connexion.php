@@ -7,33 +7,61 @@ $submit = isset($_POST['submit']);
 $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
 $motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
-if ($submit) {
 
+if ($submit) {
     if (empty($pseudo) || empty($motdepasse)) {
         echo "Nom d'utilisateur et mot de passe sont obligatoires.";
     } else {
-        $sql = "SELECT * FROM user WHERE pseudo=:pseudo ";
+        $sql_pseudo = "SELECT pseudo FROM user WHERE pseudo=:pseudo";
         try {
-            $sth = $dbh->prepare($sql);
+            $sth = $dbh->prepare($sql_pseudo);
             $sth->execute(array(
                 ':pseudo' => $pseudo
             ));
-            $row = $sth->fetch(PDO::FETCH_ASSOC);
+            $resultat_pseudo = $sth->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $ex) {
             die("Erreur lors de la requête SQL : " . $ex->getMessage());
         }
-       if ($row && password_verify($motdepasse, $row['mdp'])) {
-        $_SESSION['pseudo'] = $row['pseudo'];
-        $_SESSION['id_usertype'] = $row['id_usertype'];
-        $_SESSION['id_ligue'] = $row['id_ligue'];
-        header("Location: FAQ.php");
-        exit();
-    } else {
-        $message = "username et/ou password invalide";
-    }
-   
+        
+       if(count($resultat_pseudo) > 0)
+       {
+        $sql_mdp = "SELECT mdp FROM user WHERE pseudo=:pseudo";
+        try {
+            $sth = $dbh->prepare($sql_mdp);
+            $sth->execute(array(
+                ':pseudo' => $pseudo
+            ));
+            $resultat_mdp = $sth->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $ex) {
+            
+            die("Erreur lors de la requête SQL : " . $ex->getMessage());
+
+            if($resultat_mdp && password_verify($motdepasse, $resultat_mdp['mdp']))
+            {
+
+                
+
+                echo "ca marche !";
+
+                
+                /*echo "<p>Connecté</p>";
+                $_SESSION['pseudo'] = $row['pseudo'];
+                $_SESSION['id_usertype'] = $row['id_usertype'];
+                $_SESSION['id_ligue'] = $row['id_ligue'];
+                header("Location: FAQ.php");
+                exit();*/
+            }
+            else{
+                echo "mot de passe incorrect";
+            }
+        }
+       }
+       else {
+        echo "Identifiant inconnu !";
+       }
     }
 }
+
 ?>
         <!DOCTYPE html>
         <html lang="fr">
@@ -57,7 +85,7 @@ if ($submit) {
             </header>
       
     <div class="form">
-        <form action="Connexion.php" method="POST" class="sub-form">
+    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="POST" class="sub-form">
             <div class="upper-form">
                 <h2>Connexion à la FAQ</h2>
                 <label>Nom d'utilisateur</label> <br>
@@ -65,7 +93,7 @@ if ($submit) {
                 <label>Mot de Passe</label> <br>
                 <input type="password" name="mdp" required><br>
                 <div class="btn">
-                    <button type="submit" name="submit" class="buttonco">Se connecter</button>
+                    <input type="submit" name="submit" class="buttonco" value="Se Connecter">
                 </div>
             </div>
             <div class="bottom-form">

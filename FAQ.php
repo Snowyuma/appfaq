@@ -2,19 +2,17 @@
 session_start();
 include "include/liaison.php";
 $dbh = db_connect();
-/*
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: Connexion.php");
     exit();
 }
-*/
 
-//$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-
-$user_type = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : '';
+$id_usertype = isset($_SESSION['id_usertype']) ? $_SESSION['id_usertype'] : '';
+$id_ligue = isset($_SESSION['id_ligue']) ? $_SESSION['id_ligue'] : '';
 
 if ($id_ligue = 5) {
-    $sql = "SELECT * FROM faq, user WHERE faq.id_user = user.id_user ";
+    $sql = "SELECT * FROM faq ";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute();

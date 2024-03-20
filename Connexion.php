@@ -25,6 +25,7 @@ if ($submit) {
        if ($row && password_verify($motdepasse, $row['mdp'])) {
         $_SESSION['pseudo'] = $row['pseudo'];
         $_SESSION['id_usertype'] = $row['id_usertype'];
+        $_SESSION['id_ligue'] = $row['id_ligue'];
         header("Location: FAQ.php");
         exit();
     } else {

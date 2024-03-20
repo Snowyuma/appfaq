@@ -13,12 +13,7 @@ $id_ligue = isset($_POST['ligue']) ? $_POST['ligue'] : '';
 $mdp1 = isset($_POST['password1']) ? $_POST['password1'] : '';
 $mdp2 = isset($_POST['password2']) ? $_POST['password2'] : '';
 
-if(isset($mdp1)){
-$mdp1=password_hash($mdp1, PASSWORD_DEFAULT);
-}
-if(isset($mdp2)){
-    $mdp2=password_hash($mdp2, PASSWORD_DEFAULT);
-    }
+
 
 $sql = "SELECT pseudo FROM user WHERE pseudo=:pseudo ";
 try {
@@ -104,41 +99,39 @@ try {
         </form>
     </div>
     <?php
-if ($submit) {
-    if ($verifpseudo == $pseudo&& $pseudo != '' || $verifemail == $mail && $mail != '' || $mdp1 != $mdp2 && $mdp1 !='') {
-        if ($verifpseudo == $pseudo && $pseudo != '') {
-            echo "<p>veuilleer choisir un autre pseudo, celui que vous avez choisi existe deja</p>";
-        }
-        if ($verifemail == $mail && $mail != '') {
-            echo "<p>veuiller utiliser un autre email, celui que vous avez choisi existe deja</p>";
-        }
-        if($mdp1 !=$mdp2 && $mdp1 !=''){
-            echo"<p>vous aver tapé 2 mot de passe différent</p>";
+    if ($submit) {
+        if ($verifpseudo == $pseudo && $pseudo != '' || $verifemail == $mail && $mail != '' || $mdp1 != $mdp2 && $mdp1 != '') {
+            if ($verifpseudo == $pseudo && $pseudo != '') {
+                echo "<p>veuilleer choisir un autre pseudo, celui que vous avez choisi existe deja</p>";
+            }
+            if ($verifemail == $mail && $mail != '') {
+                echo "<p>veuiller utiliser un autre email, celui que vous avez choisi existe deja</p>";
+            }
+            if ($mdp1 != $mdp2 && $mdp1 != '') {
+                echo "<p>vous aver tapé 2 mot de passe différent</p>";
+            }
+        } else {
+            $mdp1 = password_hash($mdp1, PASSWORD_DEFAULT);
 
-        }
-    }
-    
-    else {
-       $mdphash = password_hash($mdp1, PASSWORD_DEFAULT);
-        $sql = 'insert into `user` (pseudo,mdp,mail,id_usertype,id_ligue)
+            $sql = 'insert into `user` (pseudo,mdp,mail,id_usertype,id_ligue)
         VALUES (:pseudo,:mdp,:mail,:id_ligue,:id_usertype)';
-        try {
-            $sth = $dbh->prepare($sql);
-            $sth->execute(array(
-                ':pseudo' => $pseudo,
-                ':mdp' => $mdphash,
-                ':mail' => $mail,
-                ':id_ligue' => $id_ligue,
-                ":id_usertype" => 1,
-            ));
-        } catch (PDOException $ex) {
-            die("Erreur lors de la requête SQL : " . $ex->getMessage());
+            try {
+                $sth = $dbh->prepare($sql);
+                $sth->execute(array(
+                    ':pseudo' => $pseudo,
+                    ':mdp' =>  $mdp1,
+                    ':mail' => $mail,
+                    ':id_ligue' => $id_ligue,
+                    ":id_usertype" => 1,
+                ));
+            } catch (PDOException $ex) {
+                die("Erreur lors de la requête SQL : " . $ex->getMessage());
+            }
+            header("Location: Connexion.php"); // va a la connexion
+            exit();
         }
-        header("Location: Connexion.php"); // va a la connexion
-        exit();
     }
-}
-?>
+    ?>
 
     <div class="légale">
         <p>

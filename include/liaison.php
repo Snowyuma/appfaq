@@ -20,3 +20,7 @@ function db_connect() {
   return $dbh;
 }
 ?>
+
+<?php
+
+?>

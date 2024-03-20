@@ -3,23 +3,21 @@ session_start();
 
 include "include/liaison.php";
 $dbh = db_connect();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: Connexion.php");
-    exit(); 
-}
+//if (!isset($_SESSION['user_id'])) {
+  //  header("Location: Connexion.php");
+   // exit(); 
+//}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['Question']) && !empty($_POST['Question'])) {
         $question = $_POST['Question'];
-        $dat_question = date("Y-m-d H:i:s");
-        $id_user = $_SESSION['user_id'];
+        $id_usertype = $_SESSION['id_usertype'];
 
         // Requête SQL pour insérer la question dans la base de données
-        $sql = "INSERT INTO faq(question, dat_question, id_user) VALUES (:question, :dat_question, :id_user)";
+        $sql = "INSERT INTO faq (question, dat_question, id_user) VALUES (:question, now(), :id_user)";
         try {
             $sth = $dbh->prepare($sql);
             $sth->execute(array(
                 ':question' => $question,
-                ':dat_question' => $dat_question,
                 ':id_user' => $id_user
             ));
             // Affichage du nombre d'enregistrements ajoutés

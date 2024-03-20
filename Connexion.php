@@ -38,6 +38,8 @@ if ($submit) {
                 $_SESSION['pseudo'] = $row['pseudo'];
                 $_SESSION['id_usertype'] = $row['id_usertype'];
                 $_SESSION['id_ligue'] = $row['id_ligue'];
+                $_SESSION['id_user'] = $row['id_user'];
+                $_SESSION['lib_ligue'] = $row['lib_ligue'];
                 header("Location: FAQ.php");
                 exit();
             }

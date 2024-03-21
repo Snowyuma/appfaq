@@ -80,8 +80,8 @@ try {
                     ':pseudo' => $pseudo,
                     ':mdp' =>  $mdp1,
                     ':mail' => $mail,
-                    ':id_ligue' => $id_ligue,
                     ":id_usertype" => 1,
+                    ':id_ligue' => $id_ligue
                 ));
             } catch (PDOException $ex) {
                 die("Erreur lors de la requête SQL : " . $ex->getMessage());

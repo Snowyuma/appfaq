@@ -9,52 +9,8 @@ $motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
 
 if ($submit) {
-        $sql_pseudo = "SELECT pseudo FROM user WHERE pseudo=:pseudo";
-        try {
-            $sth = $dbh->prepare($sql_pseudo);
-            $sth->execute(array(
-                ':pseudo' => $pseudo
-            ));
-            $resultat_pseudo = $sth->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $ex) {
-            die("Erreur lors de la requête SQL : " . $ex->getMessage());
-        }
-
-       if(count($resultat_pseudo) > 0)
-       {
-        $sql_mdp = "SELECT mdp FROM user WHERE pseudo=:pseudo";
-        try {
-            $sth = $dbh->prepare($sql_mdp);
-            $sth->execute(array(
-                ':pseudo' => $pseudo
-            ));
-            $resultat_mdp = $sth->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $ex) {
-            die("Erreur lors de la requête SQL : " . $ex->getMessage());
-        }
-            if($resultat_mdp && password_verify($motdepasse, $resultat_mdp['mdp']))
-            {
-                echo "<p>Connecté</p>";
-                $_SESSION['pseudo'] = $row['pseudo'];
-                $_SESSION['id_usertype'] = $row['id_usertype'];
-                $_SESSION['id_ligue'] = $row['id_ligue'];
-                $_SESSION['id_user'] = $row['id_user'];
-                $_SESSION['lib_ligue'] = $row['lib_ligue'];
-                header("Location: FAQ.php");
-                exit();
-            }
-            else{
-                echo "mot de passe incorrect";
-            }
-        }
-      
-       else {
-        echo "Identifiant inconnu !";
-       }
+    connexion();
     }
-
-
-
 
 ?>
         <!DOCTYPE html>

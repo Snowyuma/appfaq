@@ -21,8 +21,8 @@ $dbh=db_connect();
     <div class="bandeau">
     <h2>Accueil site N2L:</h2>
     <?php
-    if (isset($_SERVER["username"]))
-    echo "Bienvenu".$_SERVER["username"]
+    if (isset($_SESSION['pseudo']))
+    echo "Bienvenu".$_SESSION['pseudo']
     ?>
      <button type="button" class="bdco"><a href="Connexion.php"> connexion</a></button>
      <button type="button" class="bdins"><a href="Inscription.php"> Inscription</a></button> <br>

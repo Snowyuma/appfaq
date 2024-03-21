@@ -7,7 +7,7 @@ $dbh = db_connect();
 $id_usertype = isset($_SESSION['id_usertype']) ? $_SESSION['id_usertype'] : '';
 $id_ligue = isset($_SESSION['id_ligue']) ? $_SESSION['id_ligue'] : '';
 
-if ($id_ligue = 5) {
+if ($_SESSION['id_ligue'] == 5) {
     $sql = "SELECT * FROM faq ";
     try {
         $sth = $dbh->prepare($sql);
@@ -17,7 +17,7 @@ if ($id_ligue = 5) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
 } else {
-    $sql = "SELECT * FROM faq, user WHERE faq.id_ligue=:id_ligue";
+    $sql = "SELECT * FROM faq, user WHERE faq.id_ligue=:id_ligue group by id_FAQ";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(
@@ -67,13 +67,17 @@ if ($id_ligue = 5) {
                     <th class="p">Auteur</th>
                     <th class="p">Question</th>
                     <th class="p">Réponse</th>
-                    <th class="p">Action</th>
+                    <?php if ($id_usertype == 3 || $id_usertype == 2) {
+                    echo '<th class="p">Action</th>';
+                    } ?>
                 </tr>
                 <?php
-                $sql = "select * from user, faq";
+                $sql = "SELECT * FROM user inner join faq on user.id_user=ligue.id_user
+                 WHERE user.id_ligue=:ligue";
+      
                 try {
                 $sth = $dbh->prepare($sql);
-                $sth->execute(array());
+                $sth->execute(array(':ligue'=>$_SESSION['id_ligue']));
                 $rows = $sth->fetchall(PDO::FETCH_ASSOC);
                 } catch (PDOException $ex) {
                 die("Erreur lors de la requête SQL : " . $ex->getMessage());
@@ -84,8 +88,10 @@ if ($id_ligue = 5) {
                     echo '<td class="p">' . $row["pseudo"] . '</td>';
                     echo '<td class="p">' . $row["question"] . '</td>';
                     echo '<td class="p">' . $row["reponse"] . '</td>';
+                    echo '<td class="p">' . $row["dat_question"] . '</td>';
+                    echo '<td class="p">' . $row["dat_reponse"] . '</td>';
                     // Vérifie si l'utilisateur est l'administrateur ou le super administrateur pour afficher les liens de modification/suppression
-                    if ($id_usertype == 3 || $id_usertype == 2) {
+                    if ($_SESSION['id_usertype'] == 3 || $_SESSION['id_usertype'] == 2) {
                         echo '<td><a href="Supr.php?id=' . $row['id_faq'] . '" class="action_tab">Supprimer </a><br>';
                         echo '<a href="Modif.php?id=' . $row['id_faq'] . '" class="action_tab">Modification</a></td>';
                     }

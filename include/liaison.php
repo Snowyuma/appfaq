@@ -108,11 +108,12 @@ function connexion()
       }
 
       echo "<p>Connecté</p>";
-      $_SESSION['pseudo'] =  $resultat_pseudo;
-      $_SESSION['id_usertype'] =  $resultat_id_usertype;
-      $_SESSION['id_ligue'] = $resultat_id_ligue;
-      $_SESSION['id_user'] = $resultat_id_user;
-      $_SESSION['lib_ligue'] = $resultat_lib_ligue;
+    
+      $_SESSION['pseudo'] = implode ($resultat_pseudo);
+      $_SESSION['id_usertype'] = implode ($resultat_id_usertype);
+      $_SESSION['id_ligue'] = implode ($resultat_id_ligue);
+      $_SESSION['id_user'] = implode ($resultat_id_user);
+      $_SESSION['lib_ligue'] = implode ($resultat_lib_ligue);
       header("Location: FAQ.php");
       exit();
     } else {

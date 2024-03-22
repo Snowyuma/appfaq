@@ -13,24 +13,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id_usertype = $_SESSION['id_usertype'];
 
         // Requête SQL pour insérer la question dans la base de données
-        $sql = "INSERT INTO faq (question, dat_question, id_user) VALUES ('question', now(), 'id_user')";
+        $sql = "INSERT INTO faq (question, dat_question, id_user) VALUES (:question, now(), :id_user)";
         try {
             $sth = $dbh->prepare($sql);
             $sth->execute(array(
                 ':question' => $question,
-                ':id_user' => $id_user
+                ':id_user' => implode ($_SESSION['id_user'])
             ));
-            // Affichage du nombre d'enregistrements ajoutés
-            echo "<p>".$sth->rowCount()." enregistrement(s) ajouté(s)</p>";
-        } catch (PDOException $ex) {
-            // En cas d'erreur, affichage du message d'erreur
-            die("Erreur lors de la requête SQL : ".$ex->getMessage());
+        } catch (PDOException $e) {
+            echo "Erreur lors de la requête SQL : " . $e->getMessage();
         }
-    } else {
+    }
+}
+     else {
         // Si la question est vide, affichage d'un message d'erreur
         echo "<p>Veuillez entrer une question.</p>";
     }
-}
+
 ?>
 
 <!DOCTYPE html>

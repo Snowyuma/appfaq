@@ -17,7 +17,7 @@ if ($_SESSION['id_ligue'] == 5) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
 } else {
-    $sql = "SELECT * FROM faq, user WHERE faq.id_ligue=:id_ligue group by id_FAQ";
+    $sql = "SELECT * FROM faq, user WHERE faq.id_user=:id_user group by id_FAQ";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(
@@ -72,12 +72,12 @@ if ($_SESSION['id_ligue'] == 5) {
                     } ?>
                 </tr>
                 <?php
-                $sql = "SELECT * FROM user inner join faq on user.id_user=ligue.id_user
-                 WHERE user.id_ligue=:ligue";
+                $sql = "SELECT * FROM user inner join faq on user.id_user=faq.id_user
+                 WHERE question=:question";
       
                 try {
                 $sth = $dbh->prepare($sql);
-                $sth->execute(array(':ligue'=>$_SESSION['id_ligue']));
+                $sth->execute(array(':question'=>$_SESSION['question']));
                 $rows = $sth->fetchall(PDO::FETCH_ASSOC);
                 } catch (PDOException $ex) {
                 die("Erreur lors de la requête SQL : " . $ex->getMessage());
@@ -91,12 +91,19 @@ if ($_SESSION['id_ligue'] == 5) {
                     echo '<td class="p">' . $row["dat_question"] . '</td>';
                     echo '<td class="p">' . $row["dat_reponse"] . '</td>';
                     // Vérifie si l'utilisateur est l'administrateur ou le super administrateur pour afficher les liens de modification/suppression
+
+                    if ($id_usertype == 3 || $id_usertype == 2) {
+                        echo '<td><a href="Supr.php" class="action_tab">Supprimer </a><br>';
+                        echo '<td><a href="Modif.php" class="action_tab">Modification</a></td>';
+
                     if ($_SESSION['id_usertype'] == 3 || $_SESSION['id_usertype'] == 2) {
                         echo '<td><a href="Supr.php?id=' . $row['id_faq'] . '" class="action_tab">Supprimer </a><br>';
                         echo '<a href="Modif.php?id=' . $row['id_faq'] . '" class="action_tab">Modification</a></td>';
+
                     }
                     echo '</tr>';
                 }
+            }
                 ?>
             </table>
             <br>
@@ -118,5 +125,4 @@ if ($_SESSION['id_ligue'] == 5) {
         </p>
     </div>
 </body>
-
 </html>

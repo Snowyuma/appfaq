@@ -7,11 +7,6 @@ $submit = isset($_POST['submit']);
 $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
 $motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
 
-
-if ($submit) {
-    connexion();
-    }
-
 ?>
         <!DOCTYPE html>
         <html lang="fr">
@@ -33,7 +28,7 @@ if ($submit) {
                     </div>
                 </nav>
             </header>
-      
+     
     <div class="form">
     <form action=<?php echo $_SERVER["PHP_SELF"] ?> method="POST" class="sub-form">
             <div class="upper-form">
@@ -46,12 +41,23 @@ if ($submit) {
                     <button type="submit" name="submit" class="buttonco">Se Connecter</button>
                 </div>
             </div>
+
+         
             <div class="bottom-form">
                 <div class="pas-de-compte">Vous n'avez pas de compte ?</div>
                 <a href="Inscription.php" class="seconnecter">Inscription</a>
             </div>
         </form>
     </div>
+    <div class="erreurmdp">
+    <?php 
+      if ($submit) {
+        connexion();
+        }
+    
+      ?>
+      </div>
+   
 
     <div class="légale">
         <h4>Projet AP2 site N2L FAQ</h4>

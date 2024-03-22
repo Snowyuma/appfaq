@@ -11,7 +11,7 @@ if (!isset($_SESSION['id_user'])) {
 
 $id_usertype = isset($_SESSION['id_usertype']) ? $_SESSION['id_usertype'] : '';
 $id_ligue = isset($_SESSION['id_ligue']) ? $_SESSION['id_ligue'] : '';
-
+$id_user = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : '';
 if ($_SESSION['id_ligue'] == 5) {
     $sql = "SELECT * FROM faq ";
     try {
@@ -77,7 +77,7 @@ if ($_SESSION['id_ligue'] == 5) {
                     } ?>
                 </tr>
                 <?php
-                $sql = "SELECT  pseudo, question, reponse FROM user, faq where user.id_user=faq.id_user ";
+                $sql = "SELECT  pseudo, question, reponse,  id_faq FROM user, faq where user.id_user=faq.id_user ";
       //and user.id_ligue= faq.id_ligue
                 try {
                 $sth = $dbh->prepare($sql);

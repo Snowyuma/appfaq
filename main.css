@@ -444,7 +444,7 @@ td {
     border-color: rgb(255, 255, 255);
     border-collapse: collapse;
     width: auto;
-    height: 23.65px;
+    height: 50px;
     color: rgb(255, 255, 255);
 }
 
@@ -467,7 +467,7 @@ td {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 70%;
+    width: 90%;
     height: auto;
     border-radius: 12px;
     box-shadow: rgba(50, 50, 93, 0, 25) 0px 13px 27px 5px, rgba(0, 0, 0, 0.3) 0px 8px 16px 8px;
@@ -529,4 +529,9 @@ td {
 a {
     text-decoration: none;
     color: white;
+}
+.erreurmdp{
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: -140px;
 }

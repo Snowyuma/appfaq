@@ -9,12 +9,12 @@ $dbh=db_connect();
 $submit = isset($_POST['submit']);
 
 if ($submit){
-    print_r($submit);
+    
     session_unset(); // Détruit toutes les variables de session
     session_destroy(); // Détruit la session (mais pas le cookie)
     setcookie(session_name(),'',-1,'/'); // Détruit le cookie de session
-    //header("Location: Accueil.php"); // Revient à la page d'accueil
-    //exit();
+    header("Location: Accueil.php"); // Revient à la page d'accueil
+    exit();
     }
 
 ?>
@@ -45,7 +45,7 @@ if ($submit){
     </header>
     <div class="formdeco">
 
-        <form action=<?php $_SERVER["PHP_SELF"] ?> method="POST" class="sub-formdeco">
+        <form action=<?php echo $_SERVER["PHP_SELF"] ?> method="POST" class="sub-formdeco">
 
             <div class="upper-form">
                 <h2>Déconnexion de la FAQ</h2>

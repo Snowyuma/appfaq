@@ -167,7 +167,9 @@ ALTER TABLE `user`
 -- Contraintes pour la table `faq`
 --
 ALTER TABLE `faq`
-  ADD CONSTRAINT `FK_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `FK_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
+  ADD CONSTRAINT `FK_ligue_faq` FOREIGN KEY (`id_ligue`) REFERENCES `ligue` (`id_ligue`),
+  ADD CONSTRAINT `FK_ligue_user` FOREIGN KEY (`id_ligue`) REFERENCES `user` (`id_ligue`);
 
 --
 -- Contraintes pour la table `user`

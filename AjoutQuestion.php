@@ -3,34 +3,39 @@ session_start();
 
 include "include/liaison.php";
 $dbh = db_connect();
-//if (!isset($_SESSION['user_id'])) {
-  //  header("Location: Connexion.php");
-   // exit(); 
-//}
+// Vérification de l'authentification de l'utilisateur
+if (!isset($_SESSION['id_user'])) {
+    header("Location: Connexion.php");
+    exit();
+}
+// Vérification si la méthode de requête est POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Vérification si le champ Question est défini et non vide
     if(isset($_POST['Question']) && !empty($_POST['Question'])) {
         $question = $_POST['Question'];
-        $id_usertype = $_SESSION['id_usertype'];
-        $id_user = implode ($_SESSION['id_user']);
+        // Vérification si $_SESSION['id_user'] est un tableau
+        $id_user = (is_array($_SESSION['id_user'])) ? implode(',', $_SESSION['id_user']) : $_SESSION['id_user'];
         // Requête SQL pour insérer la question dans la base de données
         $sql = "INSERT INTO faq (question, dat_question, id_user) VALUES (:question, now(), :id_user)";
         try {
             $sth = $dbh->prepare($sql);
             $sth->execute(array(
                 ':question' => $question,
-                ':id_user' => implode ($_SESSION['id_user'])
+                ':id_user' => $id_user
             ));
+            // Redirection après insertion réussie
+            header("Location: FAQ.php");
+            exit();
         } catch (PDOException $e) {
             echo "Erreur lors de la requête SQL : " . $e->getMessage();
         }
-    }
-}
-     else {
+    } else {
         // Si la question est vide, affichage d'un message d'erreur
         echo "<p>Veuillez entrer une question.</p>";
     }
-
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">

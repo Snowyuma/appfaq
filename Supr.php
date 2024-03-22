@@ -7,7 +7,7 @@ include "include/liaison.php";
 $dbh=db_connect();
 
 $id_faq='';
-$sql = "DELETE FROM `faq` where `faq`.`id_faq` = 1 id_faq=:id_faq";
+$sql = "DELETE FROM `faq` where  id_faq=:id_faq";
 try {
 $sth = $dbh->prepare($sql);
 $sth->execute(array(

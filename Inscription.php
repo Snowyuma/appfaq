@@ -73,7 +73,7 @@ try {
             $mdp1 = password_hash($mdp1, PASSWORD_DEFAULT);
 
             $sql = 'insert into `user` (pseudo,mdp,mail,id_usertype,id_ligue)
-        VALUES (:pseudo,:mdp,:mail,:id_ligue,1)';
+        VALUES (:pseudo,:mdp,:mail, 1, :id_ligue)';
             try {
                 $sth = $dbh->prepare($sql);
                 $sth->execute(array(

@@ -1,10 +1,10 @@
 <?php
-//démarage de la session,
+//démarrage de la session
 session_start();
 //inclusion du fichier de fonction
 include "include/liaison.php";
-//connexion a la base de donnée
-$dbh=db_connect();
+//connexion à la base de données
+$dbh = db_connect();
 
 // Vérification de l'authentification de l'utilisateur
 if (!isset($_SESSION['id_user'])) {
@@ -12,29 +12,31 @@ if (!isset($_SESSION['id_user'])) {
     exit();
 }
 
-$reponse = isset($_POST['reponse']) ? $_POST['reponse'] : '';
-$id_faq=$_GET['id'];
+$id_faq = $_GET['id'];
 
-//recuperation des info de la question
+//récupération des infos de la question
 $sql = "SELECT  * FROM  faq where id_faq=:id_faq ";
-          try {
-          $sth = $dbh->prepare($sql);
-          $sth->execute(array(':id_faq'=>$id_faq));
-          $rows = $sth->fetchall(PDO::FETCH_ASSOC);
-          } catch (PDOException $ex) {
-          die("Erreur lors de la requête SQL : " . $ex->getMessage());
-          }
-if($submit){
- $sql = "UPDATE  faq set reponse=:reponse WHERE id_faq=:id_faq ";
 try {
-$sth = $dbh->prepare($sql);
-$sth->execute(array(
-':id_faq' => $id_faq,
-':reponse' => $reponse
-));
-} catch ( PDOException $ex) {
-die("Erreur lors de la requête SQL : ".$ex->getMessage());
+    $sth = $dbh->prepare($sql);
+    $sth->execute(array(':id_faq' => $id_faq));
+    $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $ex) {
+    die("Erreur lors de la requête SQL : " . $ex->getMessage());
 }
+
+if (isset($_POST['submit'])) {
+    $reponse = isset($_POST['reponse']) ? $_POST['reponse'] : '';
+
+    $sql = "UPDATE  faq set reponse=:reponse WHERE id_faq=:id_faq ";
+    try {
+        $sth = $dbh->prepare($sql);
+        $sth->execute(array(
+            ':id_faq' => $id_faq,
+            ':reponse' => $reponse
+        ));
+    } catch (PDOException $ex) {
+        die("Erreur lors de la requête SQL : " . $ex->getMessage());
+    }
 }
 
 ?>
@@ -43,7 +45,6 @@ die("Erreur lors de la requête SQL : ".$ex->getMessage());
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modification</title>
     <link rel="stylesheet" href="main.css">
@@ -52,9 +53,7 @@ die("Erreur lors de la requête SQL : ".$ex->getMessage());
 <body>
     <header>
         <nav class="container">
-
             <div class="lien-parent">
-                
                 <a href="FAQ.php" class="lien-social">FAQ</a>
                 <a href="AjoutQuestion.php" class="lien-social">Ajout-Question</a>
                 <a href="Deconnexion.php" class="lien-social">Déconnexion</a>
@@ -62,39 +61,36 @@ die("Erreur lors de la requête SQL : ".$ex->getMessage());
         </nav>
     </header>
     <div class="form">
-        <form action=<?php echo $_SERVER["PHP_SELF"] ?> method="POST" class="sub-form">
+        <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="POST" class="sub-form">
             <div class="upper-form">
                 <h2>Modification de la FAQ</h2>
-
-               <input type="text" value="<?php ?>"></input></li>
-                    <input type="text"  name="reponse" value="<?php ?>"></input> 
+                <?php foreach ($rows as $row) : ?>
+                    <input type="text" name="question" value="<?php echo $row['question']; ?>"></input>
+                    <input type="text" name="reponse" value="<?php echo $row['reponse']; ?>"></input>
+                <?php endforeach; ?>
             </div>
-            
             <div class="marginebuttom">
-            <button class="bd3" type="submit" name="submit">Valider</button>
-            <button class="rest bd" type="rest">Réinitialiser</button>
+                <button class="bd3" type="submit" name="submit">Valider</button>
+                <button class="rest bd" type="reset">Réinitialiser</button>
             </div>
         </form>
     </div>
-            <?php
-
-echo "<p>".$sth->rowcount()." enregistrement(s) modifié(s)</p>";
-            ?>
-
+    <?php
+    echo "<p>" . $sth->rowCount() . " enregistrement(s) modifié(s)</p>";
+    ?>
 
     <div class="légale">
         <p>
             <h4>Projet AP2 site N2L FAQ</h4>
             <h5>2023-2024<br>
-            BTS SIO: Service Informatique aux Organisations<br> 
-            option SLAM: Solutions Locigielles Application Metier<br>
-            Créateurs:  <br>
-            Chef de projet: Mathieu Fraux <br>
-            Developpeur principal: Lucas Rauzy  <br>
-            Developpeur secondaire: Colmagro Mathias </h5>
+                BTS SIO: Service Informatique aux Organisations<br>
+                option SLAM: Solutions Logicielles Application Métier<br>
+                Créateurs: <br>
+                Chef de projet: Mathieu Fraux <br>
+                Developpeur principal: Lucas Rauzy <br>
+                Developpeur secondaire: Colmagro Mathias </h5>
         </p>
     </div>
-    </form>
 </body>
 
 </html>

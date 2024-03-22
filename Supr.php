@@ -11,18 +11,6 @@ if (!isset($_SESSION['id_user'])) {
     header("Location: Connexion.php");
     exit();
 }
-
-$id_faq=$_GET['id'];
-$sql = "DELETE FROM `faq` where  id_faq=:id_faq";
-try {
-$sth = $dbh->prepare($sql);
-$sth->execute(array(
-':id_faq' => $id_faq
-));
-} catch ( PDOException $ex) {
-die("Erreur lors de la requête SQL : ".$ex->getMessage());
-}
-echo "<p>".$sth->rowcount()." enregistrement(s) supprimé(s)</p>";
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +50,21 @@ echo "<p>".$sth->rowcount()." enregistrement(s) supprimé(s)</p>";
             <button class="rest bd4" type="rest">Annuler</button>
             </div>
         </form>
+    </div>
+    <div class="erreurmdp">
+        <?php
+    $id_faq=$_GET['id'];
+$sql = "DELETE FROM `faq` where  id_faq=:id_faq";
+try {
+$sth = $dbh->prepare($sql);
+$sth->execute(array(
+':id_faq' => $id_faq
+));
+} catch ( PDOException $ex) {
+die("Erreur lors de la requête SQL : ".$ex->getMessage());
+}
+echo "<p>".$sth->rowcount()." enregistrement(s) supprimé(s)</p>";
+?>
     </div>
 
     <div class="légale">

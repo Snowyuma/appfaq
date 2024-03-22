@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id_usertype = $_SESSION['id_usertype'];
 
         // Requête SQL pour insérer la question dans la base de données
-        $sql = "INSERT INTO faq (question, dat_question, id_user) VALUES (:question, now(), :id_user)";
+        $sql = "INSERT INTO faq (question, dat_question, id_user) VALUES ('question', now(), 'id_user')";
         try {
             $sth = $dbh->prepare($sql);
             $sth->execute(array(

@@ -38,7 +38,6 @@ if ($submit){
                 
                 <a href="FAQ.php" class="lien-social">FAQ</a>
                 <a href="ajoutQuestion.php" class="lien-social">Ajout-Question</a>
-                <a href="modif.php" class="lien-social">Modification-Question</a>
                 <a href="#" class="lien-social">Déconnexion</a>
             </div>
         </nav>

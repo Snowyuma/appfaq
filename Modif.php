@@ -9,8 +9,17 @@ $dbh=db_connect();
 $reponse = isset($_POST['reponse']) ? $_POST['reponse'] : '';
 $id_faq=$_GET['id'];
 
-$sql = "UPDATE  faq set reponse=:reponse WHERE id_faq=:id_faq ";
-
+//recuperation des info de la question
+$sql = "SELECT  * FROM  faq where id_faq=:id_faq ";
+          try {
+          $sth = $dbh->prepare($sql);
+          $sth->execute(array(':id_faq'=>$id_faq));
+          $rows = $sth->fetchall(PDO::FETCH_ASSOC);
+          } catch (PDOException $ex) {
+          die("Erreur lors de la requête SQL : " . $ex->getMessage());
+          }
+if($submit){
+ $sql = "UPDATE  faq set reponse=:reponse WHERE id_faq=:id_faq ";
 try {
 $sth = $dbh->prepare($sql);
 $sth->execute(array(
@@ -20,6 +29,8 @@ $sth->execute(array(
 } catch ( PDOException $ex) {
 die("Erreur lors de la requête SQL : ".$ex->getMessage());
 }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -45,21 +56,22 @@ die("Erreur lors de la requête SQL : ".$ex->getMessage());
         </nav>
     </header>
     <div class="form">
-        <form action=<?php echo $_SERVER["PHP_SELF"] ?> class="sub-form">
+        <form action=<?php echo $_SERVER["PHP_SELF"] ?> method="POST" class="sub-form">
             <div class="upper-form">
                 <h2>Modification de la FAQ</h2>
 
-               <input type="text" value="Quels livres ont eu la plus grande influence sur toi?"></input></li>
-                    <input type="text"  name="reponse" value="reponse"></input> 
+               <input type="text" value="<?php ?>"></input></li>
+                    <input type="text"  name="reponse" value="<?php ?>"></input> 
             </div>
             
             <div class="marginebuttom">
-            <button class="bd3">Valider</button>
+            <button class="bd3" type="submit" name="submit">Valider</button>
             <button class="rest bd" type="rest">Réinitialiser</button>
             </div>
         </form>
     </div>
             <?php
+
 echo "<p>".$sth->rowcount()." enregistrement(s) modifié(s)</p>";
             ?>
 

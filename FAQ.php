@@ -72,8 +72,8 @@ if ($_SESSION['id_ligue'] == 5) {
                     } ?>
                 </tr>
                 <?php
-                $sql = "SELECT  pseudo, question, reponse FROM user, faq where user.id_user=faq.id_user";
-      
+                $sql = "SELECT  pseudo, question, reponse FROM user, faq where user.id_user=faq.id_user ";
+      //and user.id_ligue= faq.id_ligue
                 try {
                 $sth = $dbh->prepare($sql);
                 $sth->execute();
@@ -93,8 +93,9 @@ if ($_SESSION['id_ligue'] == 5) {
                    
 
                     if ($_SESSION['id_usertype'] == 3 || $_SESSION['id_usertype'] == 2) {
-                        echo '<td><a href="Supr.php?id=' . $row['id_faq'] . '" class="action_tab">Supprimer </a><br>';
-                        echo '<a href="Modif.php?id=' . $row['id_faq'] . '" class="action_tab">Modification</a></td>';
+                        $id_faq=$row['id_faq'];
+                        echo '<td><a href="Supr.php?id=' . $id_faq . '" class="action_tab">Supprimer </a><br>';
+                        echo '<a href="Modif.php?id=' . $id_faq . '" class="action_tab">Modification</a></td>';
 
                     echo '</tr>';
                 }

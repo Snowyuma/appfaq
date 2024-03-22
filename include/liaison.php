@@ -1,5 +1,4 @@
 <?php
-session_start();
 //
 // ph20b : pays de l'U.E. avec une BD
 //

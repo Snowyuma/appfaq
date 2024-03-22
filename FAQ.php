@@ -21,7 +21,7 @@ if ($_SESSION['id_ligue'] == 5) {
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(
-            ':id_user' => $user_id,
+            ':id_user' => $id_user,
         ));
         $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $ex) {
@@ -72,12 +72,11 @@ if ($_SESSION['id_ligue'] == 5) {
                     } ?>
                 </tr>
                 <?php
-                $sql = "SELECT * FROM user inner join faq on user.id_user=faq.id_user
-                 WHERE question=:question";
+                $sql = "SELECT  pseudo, question, reponse FROM user, faq where user.id_user=faq.id_user";
       
                 try {
                 $sth = $dbh->prepare($sql);
-                $sth->execute(array(':question'=>$_SESSION['question']));
+                $sth->execute();
                 $rows = $sth->fetchall(PDO::FETCH_ASSOC);
                 } catch (PDOException $ex) {
                 die("Erreur lors de la requête SQL : " . $ex->getMessage());
@@ -88,19 +87,15 @@ if ($_SESSION['id_ligue'] == 5) {
                     echo '<td class="p">' . $row["pseudo"] . '</td>';
                     echo '<td class="p">' . $row["question"] . '</td>';
                     echo '<td class="p">' . $row["reponse"] . '</td>';
-                    echo '<td class="p">' . $row["dat_question"] . '</td>';
-                    echo '<td class="p">' . $row["dat_reponse"] . '</td>';
+                  
                     // Vérifie si l'utilisateur est l'administrateur ou le super administrateur pour afficher les liens de modification/suppression
 
-                    if ($id_usertype == 3 || $id_usertype == 2) {
-                        echo '<td><a href="Supr.php" class="action_tab">Supprimer </a><br>';
-                        echo '<td><a href="Modif.php" class="action_tab">Modification</a></td>';
+                   
 
                     if ($_SESSION['id_usertype'] == 3 || $_SESSION['id_usertype'] == 2) {
                         echo '<td><a href="Supr.php?id=' . $row['id_faq'] . '" class="action_tab">Supprimer </a><br>';
                         echo '<a href="Modif.php?id=' . $row['id_faq'] . '" class="action_tab">Modification</a></td>';
 
-                    }
                     echo '</tr>';
                 }
             }

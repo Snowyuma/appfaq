@@ -12,10 +12,11 @@ if (!isset($_SESSION['id_user'])) {
     exit();
 }
 
-$id_faq = $_GET['id'];
 
-//récupération des infos de la question
-$sql = "SELECT  * FROM  faq where id_faq=:id_faq ";
+$id_faq = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Récupération des infos de la question
+$sql = "SELECT * FROM faq WHERE id_faq = :id_faq";
 try {
     $sth = $dbh->prepare($sql);
     $sth->execute(array(':id_faq' => $id_faq));
@@ -27,7 +28,8 @@ try {
 if (isset($_POST['submit'])) {
     $reponse = isset($_POST['reponse']) ? $_POST['reponse'] : '';
 
-    $sql = "UPDATE  faq set reponse=:reponse WHERE id_faq=:id_faq ";
+    // Mise à jour de la réponse
+    $sql = "UPDATE faq SET reponse = :reponse WHERE id_faq = :id_faq";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(
@@ -65,8 +67,8 @@ if (isset($_POST['submit'])) {
             <div class="upper-form">
                 <h2>Modification de la FAQ</h2>
                 <?php foreach ($rows as $row) : ?>
-                    <input type="text" name="question" value="<?php echo $row['question']; ?>"></input>
-                    <input type="text" name="reponse" value="<?php echo $row['reponse']; ?>"></input>
+                    <input type="text" name="question" value="<?php echo htmlspecialchars($row['question']); ?>"></input>
+                    <input type="text" name="reponse" value="<?php echo htmlspecialchars($row['reponse']); ?>"></input>
                 <?php endforeach; ?>
             </div>
             <div class="marginebuttom">
@@ -76,7 +78,9 @@ if (isset($_POST['submit'])) {
         </form>
     </div>
     <?php
-    echo "<p>" . $sth->rowCount() . " enregistrement(s) modifié(s)</p>";
+    if (isset($_POST['submit'])) {
+        echo "<p>" . $sth->rowCount() . " enregistrement(s) modifié(s)</p>";
+    }
     ?>
 
     <div class="légale">

@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['Question']) && !empty($_POST['Question'])) {
         $question = $_POST['Question'];
         $id_usertype = $_SESSION['id_usertype'];
-
+        $id_user = implode ($_SESSION['id_user']);
         // Requête SQL pour insérer la question dans la base de données
         $sql = "INSERT INTO faq (question, dat_question, id_user) VALUES (:question, now(), :id_user)";
         try {

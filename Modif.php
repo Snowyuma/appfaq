@@ -5,6 +5,21 @@ session_start();
 include "include/liaison.php";
 //connexion a la base de donnée
 $dbh=db_connect();
+
+$reponse = isset($_POST['reponse']) ? $_POST['reponse'] : '';
+$id_faq=$_GET['id'];
+
+$sql = "UPDATE  faq set reponse=:reponse WHERE id_faq=:id_faq ";
+
+try {
+$sth = $dbh->prepare($sql);
+$sth->execute(array(
+':id_faq' => $id_faq,
+':reponse' => $reponse
+));
+} catch ( PDOException $ex) {
+die("Erreur lors de la requête SQL : ".$ex->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -30,12 +45,12 @@ $dbh=db_connect();
         </nav>
     </header>
     <div class="form">
-        <form action="#" class="sub-form">
+        <form action=<?php echo $_SERVER["PHP_SELF"] ?> class="sub-form">
             <div class="upper-form">
                 <h2>Modification de la FAQ</h2>
 
                <input type="text" value="Quels livres ont eu la plus grande influence sur toi?"></input></li>
-                    <input type="text" value="reponse"></input> 
+                    <input type="text"  name="reponse" value="reponse"></input> 
             </div>
             
             <div class="marginebuttom">
@@ -45,18 +60,6 @@ $dbh=db_connect();
         </form>
     </div>
             <?php
-$question='';
-$reponse='';
-$sql = "update faq set reponse=:reponse where question=:question";
-try {
-$sth = $dbh->prepare($sql);
-$sth->execute(array(
-':question' => $question,
-':reponse' => $reponse
-));
-} catch ( PDOException $ex) {
-die("Erreur lors de la requête SQL : ".$ex->getMessage());
-}
 echo "<p>".$sth->rowcount()." enregistrement(s) modifié(s)</p>";
             ?>
 

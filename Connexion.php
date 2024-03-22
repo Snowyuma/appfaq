@@ -35,7 +35,7 @@ if ($submit) {
             </header>
       
     <div class="form">
-    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="POST" class="sub-form">
+    <form action=<?php echo $_SERVER["PHP_SELF"] ?> method="POST" class="sub-form">
             <div class="upper-form">
                 <h2>Connexion à la FAQ</h2>
                 <label>Nom d'utilisateur</label> <br>

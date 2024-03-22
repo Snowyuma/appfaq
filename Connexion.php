@@ -69,6 +69,7 @@ $motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
             Développeur principal: Lucas Rauzy <br>
             Développeur secondaire: Colmagro Mathias </h5>
     </div>
+    <br>
         </body>
 
         </html>

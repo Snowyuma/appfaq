@@ -29,7 +29,7 @@ $dbh=db_connect();
     </div>
     </div>
     </form>
-</body>
+   
 <div class="légaleacc">
         <p>
             <h4>Projet AP2 site N2L FAQ</h4>
@@ -42,4 +42,6 @@ $dbh=db_connect();
             Developpeur secondaire: Colmagro Mathias </h5>
         </p>
     </div>
+    <br>
+    </body>
 </html>

@@ -6,6 +6,12 @@ include "include/liaison.php";
 //connexion a la base de donnée
 $dbh=db_connect();
 
+// Vérification de l'authentification de l'utilisateur
+if (!isset($_SESSION['id_user'])) {
+    header("Location: Connexion.php");
+    exit();
+}
+
 $id_faq=$_GET['id'];
 $sql = "DELETE FROM `faq` where  id_faq=:id_faq";
 try {

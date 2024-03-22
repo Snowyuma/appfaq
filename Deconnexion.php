@@ -6,6 +6,12 @@ include "include/liaison.php";
 //connexion a la base de donnée
 $dbh=db_connect();
 
+// Vérification de l'authentification de l'utilisateur
+if (!isset($_SESSION['id_user'])) {
+    header("Location: Connexion.php");
+    exit();
+}
+
 $submit = isset($_POST['submit']);
 
 if ($submit){

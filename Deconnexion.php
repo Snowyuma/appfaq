@@ -8,6 +8,15 @@ $dbh=db_connect();
 
 $submit = isset($_POST['submit']);
 
+if ($submit){
+    print_r($submit);
+    session_unset(); // Détruit toutes les variables de session
+    session_destroy(); // Détruit la session (mais pas le cookie)
+    setcookie(session_name(),'',-1,'/'); // Détruit le cookie de session
+    //header("Location: Accueil.php"); // Revient à la page d'accueil
+    //exit();
+    }
+
 ?>
 <!DOCTYPE html>
 
@@ -49,15 +58,7 @@ $submit = isset($_POST['submit']);
             </div>
         </form>
     </div>
-  <?php
-if ($submit){
-    session_unset(); // Détruit toutes les variables de session
-    session_destroy(); // Détruit la session (mais pas le cookie)
-    setcookie(session_name(),'',-1,'/'); // Détruit le cookie de session
-    header("Location: Accueil.php"); // Revient à la page d'accueil
-    exit();
-    }
-  ?>
+ 
             
     <div class="légale">
         <p>

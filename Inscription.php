@@ -73,14 +73,13 @@ try {
             $mdp1 = password_hash($mdp1, PASSWORD_DEFAULT);
 
             $sql = 'insert into `user` (pseudo,mdp,mail,id_usertype,id_ligue)
-        VALUES (:pseudo,:mdp,:mail,:id_ligue,:id_usertype)';
+        VALUES (:pseudo,:mdp,:mail,:id_ligue,1)';
             try {
                 $sth = $dbh->prepare($sql);
                 $sth->execute(array(
                     ':pseudo' => $pseudo,
                     ':mdp' =>  $mdp1,
                     ':mail' => $mail,
-                    ":id_usertype" => 1,
                     ':id_ligue' => $id_ligue
                 ));
             } catch (PDOException $ex) {

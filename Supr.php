@@ -35,6 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Erreur lors de la requête SQL : " . $ex->getMessage();
         }
     }
+    if(isset($_POST['reset'])){
+        header("Location: FAQ.php");
+        exit();
+    }
+
 }
 ?>
 
@@ -67,9 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Champ de saisie pour l'identifiant de la FAQ à supprimer (caché) -->
             <input type="hidden" name="id_faq" value="<?php echo $_GET['id']; ?>">
             <div class="marginebuttom">
-                <button class="bd3" type="submit">Valider</button>
+                <button class="bd3" type="submit" name="submit">Valider</button>
                 <!-- Lien pour annuler et retourner à la page FAQ.php -->
-                <a href="FAQ.php" class="rest bd4">Annuler</a>
+                <button class="rest bd4" type="submit" name="reset">annuler</button>
             </div>
         </form>
     </div>

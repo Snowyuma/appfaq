@@ -21,12 +21,12 @@ if ($_SESSION['id_ligue'] == 5) {
     } catch (PDOException $ex) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
-} else {
-    $sql = "SELECT * FROM faq, user WHERE faq.id_user=:id_user group by id_FAQ";
+} elseif ($_SESSION['id_ligue'] == 1 || $_SESSION['id_ligue'] == 2 || $_SESSION['id_ligue'] == 3 || $_SESSION['id_ligue'] == 4) {
+    $sql = "SELECT * FROM faq, user,ligue WHERE faq.id_user=user.id_user and user.id_ligue=ligue.id_ligue and ligue.id_ligue=:id_ligue group by user.pseudo";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(
-            ':id_user' => $id_user,
+            ':id_ligue' => $_SESSION['id_ligue']
         ));
         $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $ex) {
@@ -59,7 +59,7 @@ if ($_SESSION['id_ligue'] == 5) {
 
     <!-- Formulaire de FAQ -->
     <div class="formfaq">
-    <form action="<?php $_SERVER["PHP_SELF"] ?>" class="sub-formfaq">
+        <form action="<?php $_SERVER["PHP_SELF"] ?>" class="sub-formfaq">
             <div class="upper-form">
                 <h2>FAQ</h2>
             </div>
@@ -73,18 +73,18 @@ if ($_SESSION['id_ligue'] == 5) {
                     <th class="p">Question</th>
                     <th class="p">Réponse</th>
                     <?php if ($id_usertype == 3 || $id_usertype == 2) {
-                    echo '<th class="p">Action</th>';
+                        echo '<th class="p">Action</th>';
                     } ?>
                 </tr>
                 <?php
                 $sql = "SELECT  pseudo, question, reponse,  id_faq FROM user, faq where user.id_user=faq.id_user ";
-      //and user.id_ligue= faq.id_ligue
+                //and user.id_ligue= faq.id_ligue
                 try {
-                $sth = $dbh->prepare($sql);
-                $sth->execute();
-                $rows = $sth->fetchall(PDO::FETCH_ASSOC);
+                    $sth = $dbh->prepare($sql);
+                    $sth->execute();
+                    $rows = $sth->fetchall(PDO::FETCH_ASSOC);
                 } catch (PDOException $ex) {
-                die("Erreur lors de la requête SQL : " . $ex->getMessage());
+                    die("Erreur lors de la requête SQL : " . $ex->getMessage());
                 }
                 // Boucle résultats de la requête SQL et affiche chaque question et réponse dans des lignes de tableau
                 foreach ($rows as $row) {
@@ -92,19 +92,19 @@ if ($_SESSION['id_ligue'] == 5) {
                     echo '<td class="p">' . $row["pseudo"] . '</td>';
                     echo '<td class="p">' . $row["question"] . '</td>';
                     echo '<td class="p">' . $row["reponse"] . '</td>';
-                  
+
                     // Vérifie si l'utilisateur est l'administrateur ou le super administrateur pour afficher les liens de modification/suppression
 
-                   
+
 
                     if ($_SESSION['id_usertype'] == 3 || $_SESSION['id_usertype'] == 2) {
-                        $id_faq=$row['id_faq'];
+                        $id_faq = $row['id_faq'];
                         echo '<td><a href="Supr.php?id=' . $id_faq . '" class="action_tab">Supprimer </a><br>';
                         echo '<a href="Modif.php?id=' . $id_faq . '" class="action_tab">Modification</a></td>';
 
-                    echo '</tr>';
+                        echo '</tr>';
+                    }
                 }
-            }
                 ?>
             </table>
             <br>
@@ -126,4 +126,5 @@ if ($_SESSION['id_ligue'] == 5) {
         </p>
     </div>
 </body>
+
 </html>

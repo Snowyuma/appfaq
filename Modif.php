@@ -1,9 +1,11 @@
 <?php
-//démarrage de la session
+// Démarrage de la session
 session_start();
-//inclusion du fichier de fonction
+
+// Inclusion du fichier de fonction pour la connexion à la base de données
 include "include/liaison.php";
-//connexion à la base de données
+
+// Connexion à la base de données
 $dbh = db_connect();
 
 // Vérification de l'authentification de l'utilisateur
@@ -12,35 +14,43 @@ if (!isset($_SESSION['id_user'])) {
     exit();
 }
 
-
+// Vérification si l'identifiant de la question est fourni dans l'URL
 $id_faq = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Récupération des infos de la question
+// Récupération des informations de la question de la FAQ depuis la base de données
 $sql = "SELECT * FROM faq WHERE id_faq = :id_faq";
 try {
     $sth = $dbh->prepare($sql);
     $sth->execute(array(':id_faq' => $id_faq));
-    $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+    $rows = $sth->fetchAll(PDO::FETCH_ASSOC); // Stockage des résultats dans un tableau associatif
 } catch (PDOException $ex) {
     die("Erreur lors de la requête SQL : " . $ex->getMessage());
 }
 
+// Si le formulaire est soumis
 if (isset($_POST['submit'])) {
+    // Récupération des données du formulaire
+    $id_faq = isset($_POST['id_faq']) ? intval($_POST['id_faq']) : 0;
+    $question = isset($_POST['question']) ? $_POST['question'] : '';
     $reponse = isset($_POST['reponse']) ? $_POST['reponse'] : '';
 
-    // Mise à jour de la réponse
-    $sql = "UPDATE faq SET reponse = :reponse WHERE id_faq = :id_faq";
+    // Mise à jour de la question et de la réponse dans la base de données
+    $sql = "UPDATE faq SET question = :question, reponse = :reponse WHERE id_faq = :id_faq";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(
             ':id_faq' => $id_faq,
+            ':question' => $question,
             ':reponse' => $reponse
         ));
+
+        // Redirection vers FAQ.php après la mise à jour
+        header("Location: FAQ.php");
+        exit();
     } catch (PDOException $ex) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -67,11 +77,16 @@ if (isset($_POST['submit'])) {
             <div class="upper-form">
                 <h2>Modification de la FAQ</h2>
                 <?php foreach ($rows as $row) : ?>
-                    <input type="text" name="question" value="<?php echo htmlspecialchars($row['question']); ?>"></input>
-                    <input type="text" name="reponse" value="<?php echo htmlspecialchars($row['reponse']); ?>"></input>
+                    <!-- Ajout d'un champ caché pour l'identifiant de la question -->
+                    <input type="hidden" name="id_faq" value="<?php echo htmlspecialchars($row['id_faq']); ?>">
+                    <!-- Champ de saisie pour la question -->
+                    <input type="text" name="question" value="<?php echo htmlspecialchars($row['question']); ?>">
+                    <!-- Champ de saisie pour la réponse -->
+                    <input type="text" name="reponse" value="<?php echo htmlspecialchars($row['reponse']); ?>">
                 <?php endforeach; ?>
             </div>
             <div class="marginebuttom">
+                <!-- Boutons de soumission et de réinitialisation du formulaire -->
                 <button class="bd3" type="submit" name="submit">Valider</button>
                 <button class="rest bd" type="reset">Réinitialiser</button>
             </div>
@@ -83,6 +98,7 @@ if (isset($_POST['submit'])) {
     }
     ?>
 
+    <!-- Informations légales sur le projet -->
     <div class="légale">
         <p>
             <h4>Projet AP2 site N2L FAQ</h4>

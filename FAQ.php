@@ -15,7 +15,7 @@ $id_user = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : '';
 
 if ($_SESSION['id_ligue'] == 5) {
     $sql = "SELECT * FROM faq ";
-    echo $sql;
+ 
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute();
@@ -24,7 +24,7 @@ if ($_SESSION['id_ligue'] == 5) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
 } else if ($_SESSION['id_ligue'] == 1 || $_SESSION['id_ligue'] == 2 || $_SESSION['id_ligue'] == 3 || $_SESSION['id_ligue'] == 4) {
-    $sql = "SELECT user.pseudo,faq.question,faq.reponse 
+    $sql = "SELECT user.pseudo,faq.question,faq.reponse,faq.id_faq 
     FROM faq, user,ligue 
     WHERE faq.id_user=user.id_user 
     and user.id_ligue=ligue.id_ligue 
@@ -90,13 +90,10 @@ if ($_SESSION['id_ligue'] == 5) {
                     echo '<td class="p">' . $row["pseudo"] . '</td>';
                     echo '<td class="p">' . $row["question"] . '</td>';
                     echo '<td class="p">' . $row["reponse"] . '</td>';
-
+                    
                     // Vérifie si l'utilisateur est l'administrateur ou le super administrateur pour afficher les liens de modification/suppression
-
-
-
                     if ($_SESSION['id_usertype'] == 3 || $_SESSION['id_usertype'] == 2) {
-                        $id_faq = $row['id_faq'];
+                       $id_faq = $row["id_faq"];
                         echo '<td><a href="Supr.php?id=' . $id_faq . '" class="action_tab">Supprimer </a><br>';
                         echo '<a href="Modif.php?id=' . $id_faq . '" class="action_tab">Modification</a></td>';
 

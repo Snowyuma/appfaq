@@ -80,9 +80,11 @@ if (isset($_POST['submit'])) {
                     <!-- Ajout d'un champ caché pour l'identifiant de la question -->
                     <input type="hidden" name="id_faq" value="<?php echo htmlspecialchars($row['id_faq']); ?>">
                     <!-- Champ de saisie pour la question -->
-                    <input type="text" name="question" value="<?php echo htmlspecialchars($row['question']); ?>">
+                    <label for="question"> question:</label>
+                    <input type="text"  id="question" name="question" value="<?php echo htmlspecialchars($row['question']); ?>">
                     <!-- Champ de saisie pour la réponse -->
-                    <input type="text" name="reponse" value="<?php echo htmlspecialchars($row['reponse']); ?>">
+                    <label for="reponse">réponse:</label>
+                    <input type="text" id="reponse" name="reponse" value="<?php echo htmlspecialchars($row['reponse']); ?>">
                 <?php endforeach; ?>
             </div>
             <div class="marginebuttom">

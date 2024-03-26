@@ -172,6 +172,7 @@ button:hover {
     align-items: center;
     width: 98vw;
     height: auto;
+    color:white;
     border-radius: 12px;
     box-shadow: rgba(50, 50, 93, 0, 25) 0px 13px 27px 5px, rgba(0, 0, 0, 0.3) 0px 8px 16px 8px;
     background-color: black;
@@ -373,6 +374,7 @@ h3 {
     flex-direction: column;
     align-items: center;
     width: 98vw;
+    color:white;
     height: auto;
     margin-top: 9%;
     border-radius: 12px;

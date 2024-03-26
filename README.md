@@ -9,8 +9,7 @@ Membres du groupe projet:
 Fraux Mathieu
 Colmagro Mathias
 Rauzy Lucas
-LOT 1:
-logs utilisateurs de base:
+
 
 logs : 
 pseudos: 

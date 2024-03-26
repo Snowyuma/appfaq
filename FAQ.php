@@ -14,8 +14,7 @@ $id_ligue = isset($_SESSION['id_ligue']) ? $_SESSION['id_ligue'] : '';
 $id_user = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : '';
 
 if ($_SESSION['id_ligue'] == 5) {
-    $sql = "SELECT * FROM faq ";
- 
+    $sql = "SELECT * FROM faq inner join user on faq.id_user=user.id_user ";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute();

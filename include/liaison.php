@@ -43,7 +43,7 @@ function connexion()
   }
   
   //verification si lme pseudo existe
-  if (($resultat_pseudo) > 0) {
+  if (count($resultat_pseudo) > 0) {
     // verification du mot de passe
     $sql_mdp = "SELECT mdp FROM user WHERE pseudo=:pseudo";
     try {
@@ -81,7 +81,6 @@ function connexion()
       } catch (PDOException $ex) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
       }
-      
       //recuperation de l'id utilisateur
       $sql_user = "SELECT id_user FROM user WHERE pseudo=:pseudo";
       try {
@@ -117,9 +116,9 @@ function connexion()
       header("Location: FAQ.php");
       exit();
     } else {
-      echo "<p>Mot de Passe Incorrect</p>";
+      echo "mot de passe incorrect";
     }
   } else {
-    echo "<p>Identifiant Inconnu !</p>";
+    echo "Identifiant inconnu !";
   }
 }

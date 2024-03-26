@@ -1,8 +1,9 @@
 <?php
+//connexion à la BDD
 session_start();
 include "include/liaison.php";
 $dbh = db_connect();
-
+//création des variables
 $submit = isset($_POST['submit']);
 $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
 $motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
@@ -51,6 +52,7 @@ $motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
     </div>
     <div class="erreurmdp">
     <?php 
+    //si le bouton est appuyer, se connecter au compte avec les informaitons remplies
       if ($submit) {
         connexion();
         }

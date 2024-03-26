@@ -21,6 +21,7 @@ $dbh=db_connect();
     <div class="bandeau">
     <h2>Accueil site N2L:</h2>
     <?php
+    //affichage du message bienvenue et le pseudo de l'utilisateur une fois connecté
     if (isset($_SESSION['pseudo']))
     echo "Bienvenu".$_SESSION['pseudo']
     ?>

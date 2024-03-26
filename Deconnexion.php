@@ -11,11 +11,11 @@ if (!isset($_SESSION['id_user'])) {
     header("Location: Connexion.php");
     exit();
 }
-
+//défintion du bouton en mode post
 $submit = isset($_POST['submit']);
-
+//si le bouton est appuiyer
 if ($submit){
-    
+  
     session_unset(); // Détruit toutes les variables de session
     session_destroy(); // Détruit la session (mais pas le cookie)
     setcookie(session_name(),'',-1,'/'); // Détruit le cookie de session

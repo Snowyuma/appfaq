@@ -8,7 +8,7 @@ if (!isset($_SESSION['id_user'])) {
     header("Location: Connexion.php");
     exit();
 }
-// Vérification si la méthode de requête est POST
+
 
 ?>
 
@@ -44,6 +44,7 @@ if (!isset($_SESSION['id_user'])) {
         </form>
     </div>
     <?php
+    // Vérification si la méthode de requête est POST
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérification si le champ Question est défini et non vide
     if(isset($_POST['Question']) && !empty($_POST['Question'])) {

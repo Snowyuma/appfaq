@@ -13,7 +13,9 @@ $id_usertype = isset($_SESSION['id_usertype']) ? $_SESSION['id_usertype'] : '';
 $id_ligue = isset($_SESSION['id_ligue']) ? $_SESSION['id_ligue'] : '';
 $id_user = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : '';
 if ($_SESSION['id_ligue'] == 5) {
-    $sql = "SELECT * FROM faq inner join user on faq.id_user=user.id_user";
+    $sql = "SELECT * FROM faq , user, ligue 
+    where faq.id_user=user.id_user  
+    and user.id_ligue=ligue.id_ligue";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute();
@@ -77,8 +79,12 @@ if ($_SESSION['id_ligue'] == 5) {
                     <th class="p">Auteur</th>
                     <th class="p">Question</th>
                     <th class="p">Réponse</th>
+                    
                     <?php if ($id_usertype == 3 || $id_usertype == 2) {
                         echo '<th class="p">Action</th>';
+                        if ($id_usertype == 3){
+                            echo '<th class="p">ligue</th>';
+                        }
                     } ?>
                 </tr>
                 <?php
@@ -91,6 +97,7 @@ if ($_SESSION['id_ligue'] == 5) {
                     echo '<td class="p">' . $row["pseudo"] . '</td>';
                     echo '<td class="p">' . $row["question"] . '</td>';
                     echo '<td class="p">' . $row["reponse"] . '</td>';
+                   
 
                     // Vérifie si l'utilisateur est l'administrateur ou le super administrateur pour afficher les liens de modification/suppression
 
@@ -98,11 +105,15 @@ if ($_SESSION['id_ligue'] == 5) {
 
                     if ($_SESSION['id_usertype'] == 3 || $_SESSION['id_usertype'] == 2) {
                         $id_faq = $row['id_faq'];
-                        echo '<td><a href="Supr.php?id=' . $id_faq . '" class="action_tab">Supprimer </a><br>';
-                        echo '<a href="Modif.php?id=' . $id_faq . '" class="action_tab">Modification</a></td>';
 
-                        echo '</tr>';
+                        echo '<td><a href="Supr.php?id=' . $id_faq . '" class="action_tab">Supprimer </a><br>';
+                        echo '<a href="Modif.php?id=' . $id_faq . '" class="action_tab">Modification</a>';
+                        
+                        if ($_SESSION['id_usertype'] == 3){
+                             echo '<td class="p">' . $row["lib_ligue"] . '</td>';
+                        }
                     }
+                    echo '</tr>';
                 }
                 ?>
             </table>

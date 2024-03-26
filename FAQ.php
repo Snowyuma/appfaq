@@ -22,7 +22,12 @@ if ($_SESSION['id_ligue'] == 5) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
 } elseif ($_SESSION['id_ligue'] == 1 || $_SESSION['id_ligue'] == 2 || $_SESSION['id_ligue'] == 3 || $_SESSION['id_ligue'] == 4) {
-    $sql = "SELECT * FROM faq, user,ligue WHERE faq.id_user=user.id_user and user.id_ligue=ligue.id_ligue and ligue.id_ligue=:id_ligue group by user.pseudo";
+    $sql = "SELECT faq.id_faq,faq.question,faq.reponse, 
+    FROM faq, user,ligue
+     WHERE faq.id_user=user.id_user 
+     and user.id_ligue=ligue.id_ligue
+      and ligue.id_ligue=:id_ligue 
+      group by faq.id_faq";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(
@@ -77,15 +82,7 @@ if ($_SESSION['id_ligue'] == 5) {
                     } ?>
                 </tr>
                 <?php
-                $sql = "SELECT  pseudo, question, reponse,  id_faq FROM user, faq where user.id_user=faq.id_user ";
-                //and user.id_ligue= faq.id_ligue
-                try {
-                    $sth = $dbh->prepare($sql);
-                    $sth->execute();
-                    $rows = $sth->fetchall(PDO::FETCH_ASSOC);
-                } catch (PDOException $ex) {
-                    die("Erreur lors de la requête SQL : " . $ex->getMessage());
-                }
+                
                 // Boucle résultats de la requête SQL et affiche chaque question et réponse dans des lignes de tableau
                 foreach ($rows as $row) {
                     echo '<tr class="tr">';

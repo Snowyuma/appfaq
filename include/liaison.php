@@ -117,9 +117,9 @@ function connexion()
       header("Location: FAQ.php");
       exit();
     } else {
-      echo "mot de passe incorrect";
+      echo "<p>Mot de Passe Incorrect</p>";
     }
   } else {
-    echo "Identifiant inconnu !";
+    echo "<p>Identifiant Inconnu !</p>";
   }
 }

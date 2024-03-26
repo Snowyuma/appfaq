@@ -12,7 +12,7 @@ Rauzy Lucas
 LOT 1:
 logs utilisateurs de base:
 
-username zz
-mdp zz
-username ee
-mdp ee
+logs : 
+pseudos: 
+mathias; mathieu; lucas; samuel; adminfoot; adminvolley; adminbascket; adminhand; superadmin
+mot de passe: le pseudo

@@ -29,7 +29,7 @@ if ($_SESSION['id_ligue'] == 5) {
     WHERE faq.id_user=user.id_user 
     and user.id_ligue=ligue.id_ligue 
     and ligue.id_ligue=:id_ligue 
-    group by user.pseudo";
+    group by faq.id_faq";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute(array(

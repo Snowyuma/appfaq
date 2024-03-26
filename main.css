@@ -452,6 +452,9 @@ td {
     width: auto;
     height: 50px;
     color: rgb(255, 255, 255);
+    /*retour a la ligne*/
+ 
+    max-width: 1500px;
 }
 
 .tdfaq {

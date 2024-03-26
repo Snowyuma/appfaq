@@ -22,7 +22,7 @@ if ($_SESSION['id_ligue'] == 5) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
 } elseif ($_SESSION['id_ligue'] == 1 || $_SESSION['id_ligue'] == 2 || $_SESSION['id_ligue'] == 3 || $_SESSION['id_ligue'] == 4) {
-    $sql = "SELECT * 
+    $sql = "SELECT  faq.id_faq,faq.question,faq.reponse,ligue.lib_ligue,user.pseudo 
     FROM faq, user,ligue
      WHERE faq.id_user=user.id_user 
      and user.id_ligue=ligue.id_ligue

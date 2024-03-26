@@ -61,8 +61,8 @@ $mdp2 = isset($_POST['password2']) ? $_POST['password2'] : '';
     }
     //debut de veriication
     if ($submit) {
-        if (count($verifpseudo) == 0) {
-            if (count($verifemail) == 0) {
+        if ($verifpseudo == false) {
+            if ($verifemail == false) {
                 if ($verifpseudo == $pseudo && $pseudo != '' || $verifemail == $mail && $mail != '' || $mdp1 != $mdp2 && $mdp1 != '') {
                     if ($verifpseudo == $pseudo && $pseudo != '') {
                         echo "<p>veuilleer choisir un autre pseudo, celui que vous avez choisi existe deja</p>";

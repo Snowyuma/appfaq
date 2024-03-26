@@ -78,13 +78,13 @@ if (isset($_POST['submit'])) {
                 <h2>Modification de la FAQ</h2>
                 <?php foreach ($rows as $row) : ?>
                     <!-- Ajout d'un champ caché pour l'identifiant de la question -->
-                    <input type="hidden" name="id_faq" value="<?php echo htmlspecialchars($row['id_faq']); ?>">
+                    <input type="hidden" name="id_faq" value="<?php echo ($row['id_faq']); ?>">
                     <!-- Champ de saisie pour la question -->
                     <label for="question"> question:</label>
-                    <input type="text"  id="question" name="question" value="<?php echo htmlspecialchars($row['question']); ?>">
+                    <input type="text"  id="question" name="question" value="<?php echo ($row['question']); ?>">
                     <!-- Champ de saisie pour la réponse -->
                     <label for="reponse">réponse:</label>
-                    <input type="text" id="reponse" name="reponse" value="<?php echo htmlspecialchars($row['reponse']); ?>">
+                    <input type="text" id="reponse" name="reponse" value="<?php echo ($row['reponse']); ?>">
                 <?php endforeach; ?>
             </div>
             <div class="marginebuttom">

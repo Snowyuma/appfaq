@@ -13,7 +13,7 @@ $id_usertype = isset($_SESSION['id_usertype']) ? $_SESSION['id_usertype'] : '';
 $id_ligue = isset($_SESSION['id_ligue']) ? $_SESSION['id_ligue'] : '';
 $id_user = isset($_SESSION['id_user']) ? $_SESSION['id_user'] : '';
 if ($_SESSION['id_ligue'] == 5) {
-    $sql = "SELECT * FROM faq ";
+    $sql = "SELECT * FROM faq inner join user on faq.id_user=user.id_user";
     try {
         $sth = $dbh->prepare($sql);
         $sth->execute();
@@ -22,7 +22,7 @@ if ($_SESSION['id_ligue'] == 5) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
 } elseif ($_SESSION['id_ligue'] == 1 || $_SESSION['id_ligue'] == 2 || $_SESSION['id_ligue'] == 3 || $_SESSION['id_ligue'] == 4) {
-    $sql = "SELECT  faq.id_faq,faq.question,faq.reponse,ligue.lib_ligue,user.pseudo 
+    $sql = "SELECT  *
     FROM faq, user,ligue
      WHERE faq.id_user=user.id_user 
      and user.id_ligue=ligue.id_ligue
@@ -82,7 +82,9 @@ if ($_SESSION['id_ligue'] == 5) {
                     } ?>
                 </tr>
                 <?php
-                
+               // echo "<pre>";
+               //print_r($rows);
+               //echo "</pre>";
                 // Boucle résultats de la requête SQL et affiche chaque question et réponse dans des lignes de tableau
                 foreach ($rows as $row) {
                     echo '<tr class="tr">';

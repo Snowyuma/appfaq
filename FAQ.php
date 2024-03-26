@@ -23,7 +23,7 @@ if ($_SESSION['id_ligue'] == 5) {
         die("Erreur lors de la requête SQL : " . $ex->getMessage());
     }
 } else if ($_SESSION['id_ligue'] == 1 || $_SESSION['id_ligue'] == 2 || $_SESSION['id_ligue'] == 3 || $_SESSION['id_ligue'] == 4) {
-    $sql = "SELECT user.pseudo,faq.question,faq.reponse,faq.id_faq 
+    $sql = "SELECT user.pseudo,faq.question,faq.reponse,faq.id_faq,lib_ligue 
     FROM faq, user,ligue 
     WHERE faq.id_user=user.id_user 
     and user.id_ligue=ligue.id_ligue 
@@ -67,7 +67,7 @@ if ($_SESSION['id_ligue'] == 5) {
     <div class="formfaq">
         <form action="<?php $_SERVER["PHP_SELF"] ?>" class="sub-formfaq">
             <div class="upper-form">
-                <h2>FAQ</h2>
+                <h2>FAQ de <?php echo $row["lib_ligue "]  ?></h2>
             </div>
 
             <!-- Tableau pour afficher les questions et réponses -->

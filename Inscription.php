@@ -15,23 +15,7 @@ $mdp2 = isset($_POST['password2']) ? $_POST['password2'] : '';
 
 
 
-$sql = "SELECT pseudo FROM user WHERE pseudo=:pseudo ";
-try {
-    $sth = $dbh->prepare($sql);
-    $sth->execute(array(':pseudo' => $pseudo));
-    $verifpseudo = $sth->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $ex) {
-    die("Erreur lors de la requête SQL : " . $ex->getMessage());
-}
-$sql = "SELECT mail FROM user WHERE mail=:mail ";
-try {
-    $sth = $dbh->prepare($sql);
-    $sth->execute(array(':mail' => $mail));
-    $verifemail = $sth->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $ex) {
-    die("Erreur lors de la requête SQL : " . $ex->getMessage());
-}
-//debut de veriication
+
 
 ?>
 <!DOCTYPE html>
@@ -44,8 +28,9 @@ try {
     <title>Inscription</title>
     <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
-    
+
     <header>
         <nav class="container">
 
@@ -57,36 +42,61 @@ try {
             </div>
         </nav>
     </header>
-<?php
+    <?php
+    $sql = "SELECT pseudo FROM user WHERE pseudo=:pseudo ";
+    try {
+        $sth = $dbh->prepare($sql);
+        $sth->execute(array(':pseudo' => $pseudo));
+        $verifpseudo = $sth->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $ex) {
+        die("Erreur lors de la requête SQL : " . $ex->getMessage());
+    }
+    $sql = "SELECT mail FROM user WHERE mail=:mail ";
+    try {
+        $sth = $dbh->prepare($sql);
+        $sth->execute(array(':mail' => $mail));
+        $verifemail = $sth->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $ex) {
+        die("Erreur lors de la requête SQL : " . $ex->getMessage());
+    }
+    //debut de veriication
     if ($submit) {
-        if ($verifpseudo == $pseudo && $pseudo != '' || $verifemail == $mail && $mail != '' || $mdp1 != $mdp2 && $mdp1 != '') {
-            if ($verifpseudo == $pseudo && $pseudo != '') {
-                echo "<p>veuilleer choisir un autre pseudo, celui que vous avez choisi existe deja</p>";
-            }
-            if ($verifemail == $mail && $mail != '') {
-                echo "<p>veuiller utiliser un autre email, celui que vous avez choisi existe deja</p>";
-            }
-            if ($mdp1 != $mdp2 && $mdp1 != '') {
-                echo "<p>mot de passe différent</p>";
+        if (count($verifpseudo) == 0) {
+            if (count($verifemail) == 0) {
+                if ($verifpseudo == $pseudo && $pseudo != '' || $verifemail == $mail && $mail != '' || $mdp1 != $mdp2 && $mdp1 != '') {
+                    if ($verifpseudo == $pseudo && $pseudo != '') {
+                        echo "<p>veuilleer choisir un autre pseudo, celui que vous avez choisi existe deja</p>";
+                    }
+                    if ($verifemail == $mail && $mail != '') {
+                        echo "<p>veuiller utiliser un autre email, celui que vous avez choisi existe deja</p>";
+                    }
+                    if ($mdp1 != $mdp2 && $mdp1 != '') {
+                        echo "<p>mot de passe différent</p>";
+                    }
+                } else {
+                    $mdp1 = password_hash($mdp1, PASSWORD_DEFAULT);
+
+                    $sql = 'insert into `user` (pseudo,mdp,mail,id_usertype,id_ligue)
+                            VALUES (:pseudo,:mdp,:mail, 1, :id_ligue)';
+                    try {
+                        $sth = $dbh->prepare($sql);
+                        $sth->execute(array(
+                            ':pseudo' => $pseudo,
+                            ':mdp' =>  $mdp1,
+                            ':mail' => $mail,
+                            ':id_ligue' => $id_ligue
+                        ));
+                    } catch (PDOException $ex) {
+                        die("Erreur lors de la requête SQL : " . $ex->getMessage());
+                    }
+                    header("Location: Connexion.php"); // va a la connexion
+                    exit();
+                }
+            } else{
+                echo "<p>le mail est deja utilisée</p>";
             }
         } else {
-            $mdp1 = password_hash($mdp1, PASSWORD_DEFAULT);
-
-            $sql = 'insert into `user` (pseudo,mdp,mail,id_usertype,id_ligue)
-        VALUES (:pseudo,:mdp,:mail, 1, :id_ligue)';
-            try {
-                $sth = $dbh->prepare($sql);
-                $sth->execute(array(
-                    ':pseudo' => $pseudo,
-                    ':mdp' =>  $mdp1,
-                    ':mail' => $mail,
-                    ':id_ligue' => $id_ligue
-                ));
-            } catch (PDOException $ex) {
-                die("Erreur lors de la requête SQL : " . $ex->getMessage());
-            }
-            header("Location: Connexion.php"); // va a la connexion
-            exit();
+            echo "<p>le pseudo est deja utilisé</p>";
         }
     }
     ?>

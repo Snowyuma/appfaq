@@ -61,7 +61,7 @@ if ($_SESSION['id_ligue'] == 5) {
     <div class="formfaq">
         <form action="<?php $_SERVER["PHP_SELF"] ?>" class="sub-formfaq">
             <div class="upper-form">
-                <h2>FAQ</h2>
+                <h2>FAQ de <?php echo $_SESSION["lib_ligue"] ?></h2>
             </div>
 
             <!-- Tableau pour afficher les questions et réponses -->

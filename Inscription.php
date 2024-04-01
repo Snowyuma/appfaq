@@ -1,29 +1,21 @@
 <?php
-//démarage de la session,
 session_start();
-//inclusion du fichier de fonction
 include "include/liaison.php";
-//connexion a la base de donnée
 $dbh = db_connect();
-//recuperation de toutes les données
+
 $submit = isset($_POST['submit']);
 $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
 $mail = isset($_POST['email']) ? $_POST['email'] : '';
 $id_ligue = isset($_POST['ligue']) ? $_POST['ligue'] : '';
 $mdp1 = isset($_POST['password1']) ? $_POST['password1'] : '';
 $mdp2 = isset($_POST['password2']) ? $_POST['password2'] : '';
-
-
-
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription</title>
     <link rel="stylesheet" href="main.css">
@@ -33,121 +25,95 @@ $mdp2 = isset($_POST['password2']) ? $_POST['password2'] : '';
 
     <header>
         <nav class="container">
-
             <div class="lien-parent">
                 <a href="Accueil.php" class="lien-social">Accueil</a>
                 <a href="Connexion.php" class="lien-social">Connexion</a>
                 <a href="#" class="lien-social">Inscription</a>
-
             </div>
         </nav>
     </header>
-    <?php
-    //requete sql pour recuperer les pseudo si il y en qui sont les meme que ceux deja entrée
-    $sql = "SELECT pseudo FROM user WHERE pseudo=:pseudo ";
-    try {
-        $sth = $dbh->prepare($sql);
-        $sth->execute(array(':pseudo' => $pseudo));
-        $verifpseudo = $sth->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $ex) {
-        die("Erreur lors de la requête SQL : " . $ex->getMessage());
-    }
-    //requete sql pour recuperer les mail qui sont dans la base et qui sont les meme que celui qui a ete rentrée
-    $sql = "SELECT mail FROM user WHERE mail=:mail ";
-    try {
-        $sth = $dbh->prepare($sql);
-        $sth->execute(array(':mail' => $mail));
-        $verifemail = $sth->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $ex) {
-        die("Erreur lors de la requête SQL : " . $ex->getMessage());
-    }
-    //debut de veriication
-    if ($submit) {
-        // verification qu le pseudo n'existe pas dans la base de donnée
-        if ($verifpseudo == false) {
-            // verification que le mail n'existe pas dans la base de donnée
-            if ($verifemail == false) {
-                // verification que le pseudo n est pas nul  et que le mail n'est pa null et que les 2 pseudo sont les meme
-                if (/*$verifpseudo == $pseudo && */$pseudo != '' || /*$verifemail == $mail &&*/ $mail != '' || $mdp1 != $mdp2 && $mdp1 != '') {
-                    if (/*$verifpseudo == $pseudo && */$pseudo != '') {
-                        //message d'erreur si le pseudo est null
-                        echo "<p>veuilleer choisir un  pseudo</p>";
-                    }
-                    if (/*$verifemail == $mail &&*/$mail != '') {
-                        //message d'erreur si le mail est null
-                        echo "<p>veuiller utiliser un email</p>";
-                    }
-                    if ($mdp1 != $mdp2 && $mdp1 != '') {
-                        //mesage d'erreur si les 2 mdp sont différent
-                        echo "<p>mot de passe différent</p>";
-                    }
-                } else {
-                    //hache du mot de passe
-                    $mdp1 = password_hash($mdp1, PASSWORD_DEFAULT);
-                    // insertion des donnée dans la base de donnée
-                    $sql = 'insert into `user` (pseudo,mdp,mail,id_usertype,id_ligue)
-                            VALUES (:pseudo,:mdp,:mail, 1, :id_ligue)';
-                    try {
-                        $sth = $dbh->prepare($sql);
-                        $sth->execute(array(
-                            ':pseudo' => $pseudo,
-                            ':mdp' =>  $mdp1,
-                            ':mail' => $mail,
-                            ':id_ligue' => $id_ligue
-                        ));
-                    } catch (PDOException $ex) {
-                        die("Erreur lors de la requête SQL : " . $ex->getMessage());
-                    }
 
-                    header("Location: Connexion.php"); // va a la connexion
-                    exit();
-                }
-            } else {
-                // message d'erreur si le mail existe deja dans la base de donnée
-                echo "<p>le mail est deja utilisée</p>";
+    <?php
+    if ($submit) {
+        $sql_pseudo = "SELECT pseudo FROM user WHERE pseudo=:pseudo";
+        $sth_pseudo = $dbh->prepare($sql_pseudo);
+        $sth_pseudo->execute(array(':pseudo' => $pseudo));
+        $verifpseudo = $sth_pseudo->fetch(PDO::FETCH_ASSOC);
+
+        $sql_email = "SELECT mail FROM user WHERE mail=:mail";
+        $sth_email = $dbh->prepare($sql_email);
+        $sth_email->execute(array(':mail' => $mail));
+        $verifemail = $sth_email->fetch(PDO::FETCH_ASSOC);
+
+        if (!$verifpseudo && !$verifemail && $mdp1 == $mdp2 && $pseudo != '' && $mail != '' && $mdp1 != '') {
+            $mdp_hash = password_hash($mdp1, PASSWORD_DEFAULT);
+            $sql_insert = 'INSERT INTO `user` (pseudo, mdp, mail, id_usertype, id_ligue) VALUES (:pseudo, :mdp, :mail, 1, :id_ligue)';
+            try {
+                $sth_insert = $dbh->prepare($sql_insert);
+                $sth_insert->execute(array(':pseudo' => $pseudo, ':mdp' => $mdp_hash, ':mail' => $mail, ':id_ligue' => $id_ligue));
+                header("Location: Connexion.php");
+                exit();
+            } catch (PDOException $ex) {
+                die("Erreur lors de la requête SQL : " . $ex->getMessage());
             }
         } else {
-            // message d'erreur si le pseudo existe deja dans la base de donnée
-            echo "<p>le pseudo est deja utilisé</p>";
+            if (!$verifpseudo) {
+                echo "<p>Le pseudo est déjà utilisé.</p>";
+            }
+            if (!$verifemail) {
+                echo "<p>L'email est déjà utilisé.</p>";
+            }
+            if ($mdp1 != $mdp2) {
+                echo "<p>Les mots de passe ne correspondent pas.</p>";
+            }
+            if ($pseudo == '') {
+                echo "<p>Veuillez choisir un pseudo.</p>";
+            }
+            if ($mail == '') {
+                echo "<p>Veuillez utiliser une adresse email.</p>";
+            }
+            if ($mdp1 == '') {
+                echo "<p>Veuillez entrer un mot de passe.</p>";
+            }
         }
     }
     ?>
+
     <div class="form">
-        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="Post" class="sub-form">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="sub-form">
             <div class="upper-form">
                 <h2>Inscription à la FAQ</h2>
                 
-                <label>Nom d'utilisateur*</label> <br>
-                <input type="text" name="pseudo" required> <br>
+                <label>Nom d'utilisateur*</label><br>
+                <input type="text" name="pseudo" required><br>
 
+                <label>Adresse Mail*</label><br>
+                <input type="email" name="email" required><br>
 
-                <label>Adresse Mail*</label> <br>
-                <input type="email" name="email" required> <br>
-
-                <label>Ligue*</label> <br>
+                <label>Ligue*</label><br>
                 <select name="ligue" id="ligue">
                     <option value="1">Ligue Football</option>
                     <option value="2">Ligue Basket</option>
                     <option value="3" selected="selected">Ligue Volley</option>
                     <option value="4">Ligue Handball</option>
-                </select>
-                <br>
+                </select><br>
 
-                <label>Mot de Passe*</label> <br>
-                <input type="password" name="password1" required> <br>
+                <label>Mot de Passe*</label><br>
+                <input type="password" name="password1" required><br>
 
-                <label>Retaper le Mot de Passe*</label> <br>
-                <input type="password" name="password2" required> <br>
+                <label>Retaper le Mot de Passe*</label><br>
+                <input type="password" name="password2" required><br>
 
                 <div class="btn">
-                    <button type="submit" name="submit">s'inscrire</button>
-                    <br>
+                    <button type="submit" name="submit">S'inscrire</button><br>
                 </div>
             </div>
+
             <div class="bottom-form">
-                <div class="compte">Vous avez dèja un compte ?</div>
+                <div class="compte">Vous avez déjà un compte ?</div>
                 <a href="Connexion.php" class="inscrire">Se Connecter</a>
             </div>
+            
             <br>
             <p>( * ) Champ Obligatoire</p>
             <br>
@@ -156,17 +122,16 @@ $mdp2 = isset($_POST['password2']) ? $_POST['password2'] : '';
 
     <div class="légale">
         <p>
-        <h4>Projet AP2 site N2L FAQ</h4>
-        <h5>2023-2024<br>
-            BTS SIO: Service Informatique aux Organisations<br>
-            option SLAM: Solutions Locigielles Application Metier<br>
-            Créateurs: <br>
-            Chef de projet: Mathieu Fraux <br>
-            Developpeur principal: Lucas Rauzy <br>
-            Developpeur secondaire: Colmagro Mathias </h5>
+            <h4>Projet AP2 site N2L FAQ</h4>
+            <h5>2023-2024<br>
+                BTS SIO: Service Informatique aux Organisations<br>
+                option SLAM: Solutions Logicielles Applications Métier<br>
+                Créateurs: <br>
+                Chef de projet: Mathieu Fraux <br>
+                Développeur principal: Lucas Rauzy <br>
+                Développeur secondaire: Colmagro Mathias </h5>
         </p>
     </div>
-    </form>
 
 </body>
 

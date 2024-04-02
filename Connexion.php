@@ -48,6 +48,9 @@ $motdepasse = isset($_POST['mdp']) ? $_POST['mdp'] : '';
                 <div class="pas-de-compte">Vous n'avez pas de compte ?</div>
                 <a href="Inscription.php" class="seconnecter">Inscription</a>
             </div>
+            <div class="bottom-form">
+            <a href="changement.php" class="seconnecter">changer le mot de passe</a>
+</div>
         </form>
     </div>
     <div class="erreurmdp">

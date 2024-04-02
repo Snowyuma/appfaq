@@ -85,7 +85,9 @@ if ($submit) {
             <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
 
             <div class="btn">
-                <button type="submit" name="submit">Changer le mot de passe</button><br>
+                <button type="submit" name="submit" class="buttonco">Changer le mot de passe</button><br>
+                <br>
+                <br>
             </div>
         </div>
     </form>

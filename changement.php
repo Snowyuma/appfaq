@@ -1,22 +1,23 @@
 <?php
-//démarage cession
+// Démarrage session
 session_start();
-//inclusion de la page liaison.php
+// Inclusion de la page liaison.php
 include "include/liaison.php";
+// Connexion à la base de données
 $dbh = db_connect();
-//verification si le form a été envoyé
+// Vérification si le formulaire a été envoyé
 $submit = isset($_POST['submit']);
-//récupération des informations
+// Récupération des informations
 $pseudo = isset($_POST['pseudo']) ? $_POST['pseudo'] : '';
 $mail = isset($_POST['mail']) ? $_POST['mail'] : '';
 $password1 = isset($_POST['password1']) ? $_POST['password1'] : '';
 $password2 = isset($_POST['password2']) ? $_POST['password2'] : '';
 
 if ($submit) {
-    // Vérification de la correspondance pseudo et email dans la table 'users'
+    // Vérification de la correspondance pseudo et email dans la table 'user'
     $stmt = $dbh->prepare("SELECT * FROM user WHERE pseudo = :pseudo AND mail = :mail");
     $stmt->bindParam(':pseudo', $pseudo);
-    $stmt->bindParam(':mail', $mail); // Correction : Utilisation de ':mail' au lieu de ':email'
+    $stmt->bindParam(':mail', $mail);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -26,11 +27,11 @@ if ($submit) {
             // Cryptage du mot de passe
             $hashed_password = password_hash($password1, PASSWORD_DEFAULT);
             
-            // Mise à jour du mot de passe dans la table 'users'
-            $update_stmt = $dbh->prepare("UPDATE user SET mdp = :mdp, dateheure = CURRENT_TIMESTAMP() WHERE pseudo = :pseudo");
+            // Mise à jour du mot de passe dans la table 'user'
+            $update_stmt = $dbh->prepare("UPDATE user SET mdp = :mdp WHERE pseudo = :pseudo");
             $update_stmt->bindParam(':mdp', $hashed_password);
             $update_stmt->bindParam(':pseudo', $pseudo);
-            $update_stmt->execute();
+            $update_stmt->execute(); 
             
             // Redirection vers Connexion.php
             header("Location: Connexion.php");
@@ -82,14 +83,13 @@ if ($submit) {
             <label>Retaper le Mot de Passe*</label><br>
             <input type="password" name="password2" required><br>
 
-            <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
-
             <div class="btn">
                 <button type="submit" name="submit" class="buttonco">Changer le mot de passe</button><br>
                 <br>
                 <br>
             </div>
         </div>
+        <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
     </form>
 </div>
 

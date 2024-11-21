@@ -42,33 +42,48 @@ $mdp2 = isset($_POST['password2']) ? $_POST['password2'] : '';
     <?php
     // Vérifier si le formulaire a été soumis
     if ($submit) {
-        // Vérification de l'unicité du pseudo
-        $sql_pseudo = "SELECT pseudo FROM user WHERE pseudo=:pseudo";
-        $sth_pseudo = $dbh->prepare($sql_pseudo);
-        $sth_pseudo->execute(array(':pseudo' => $pseudo));
-        $verifpseudo = $sth_pseudo->fetch(PDO::FETCH_ASSOC);
+        // verification qu le pseudo n'existe pas dans la base de donnée
+        if ($verifpseudo == false) {
+            // verification que le mail n'existe pas dans la base de donnée
+            if ($verifemail == false) {
+                // verification que le pseudo n est pas nul  et que le mail n'est pa null et que les 2 pseudo sont les meme
+                if ($verifpseudo == $pseudo && $pseudo != '' || $verifemail == $mail && $mail != '' || $mdp1 != $mdp2 && $mdp1 != '') {
+                    if ($verifpseudo == $pseudo && $pseudo != '') {
+                        //message d'erreur si le pseudo est null
+                        echo "<p>veuilleer choisir un  pseudo</p>";
+                    }
+                    if ($verifemail == $mail &&$mail != '') {
+                        //message d'erreur si le mail est null
+                        echo "<p>veuiller utiliser un email</p>";
+                    }
+                    if ($mdp1 != $mdp2 && $mdp1 != '') {
+                        //mesage d'erreur si les 2 mdp sont différent
+                        echo "<p>mot de passe différent</p>";
+                    }
+                } else {
+                    //hache du mot de passe
+                    $mdp1 = password_hash($mdp1, PASSWORD_DEFAULT);
+                    // insertion des donnée dans la base de donnée
+                    $sql = 'insert into `user` (pseudo,mdp,mail,id_usertype,id_ligue)
+                            VALUES (:pseudo,:mdp,:mail, 1, :id_ligue)';
+                    try {
+                        $sth = $dbh->prepare($sql);
+                        $sth->execute(array(
+                            ':pseudo' => $pseudo,
+                            ':mdp' =>  $mdp1,
+                            ':mail' => $mail,
+                            ':id_ligue' => $id_ligue
+                        ));
+                    } catch (PDOException $ex) {
+                        die("Erreur lors de la requête SQL : " . $ex->getMessage());
+                    }
 
-        // Vérification de l'unicité de l'email
-        $sql_email = "SELECT mail FROM user WHERE mail=:mail";
-        $sth_email = $dbh->prepare($sql_email);
-        $sth_email->execute(array(':mail' => $mail));
-        $verifemail = $sth_email->fetch(PDO::FETCH_ASSOC);
-
-        // Vérifier les conditions d'inscription
-        if (!$verifpseudo && !$verifemail && $mdp1 == $mdp2 && $pseudo != '' && $mail != '' && $mdp1 != '') {
-            // Hasher le mot de passe
-            $mdp_hash = password_hash($mdp1, PASSWORD_DEFAULT);
-            // Insérer l'utilisateur dans la base de données
-            $sql_insert = 'INSERT INTO `user` (pseudo, mdp, mail, id_usertype, id_ligue) VALUES (:pseudo, :mdp, :mail, 1, :id_ligue)';
-            try {
-                $sth_insert = $dbh->prepare($sql_insert);
-                $sth_insert->execute(array(':pseudo' => $pseudo, ':mdp' => $mdp_hash, ':mail' => $mail, ':id_ligue' => $id_ligue));
-                // Rediriger vers la page de connexion
-                header("Location: Connexion.php");
-                exit();
-            } catch (PDOException $ex) {
-                // Afficher une erreur en cas d'échec de la requête SQL
-                die("Erreur lors de la requête SQL : " . $ex->getMessage());
+                    header("Location: Connexion.php"); // va a la connexion
+                    exit();
+                }
+            } else {
+                // message d'erreur si le mail existe deja dans la base de donnée
+                echo "<p>le mail est deja utilisée</p>";
             }
         } else {
             // Afficher les erreurs d'inscription

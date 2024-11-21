@@ -43,7 +43,7 @@ function connexion()
   }
   
   //verification si lme pseudo existe
-  if (count($resultat_pseudo) > 0) {
+  if (($resultat_pseudo) > 0) {
     // verification du mot de passe
     $sql_mdp = "SELECT mdp FROM user WHERE pseudo=:pseudo";
     try {

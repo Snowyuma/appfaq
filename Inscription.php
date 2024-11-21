@@ -68,12 +68,12 @@ $mdp2 = isset($_POST['password2']) ? $_POST['password2'] : '';
             // verification que le mail n'existe pas dans la base de donnée
             if ($verifemail == false) {
                 // verification que le pseudo n est pas nul  et que le mail n'est pa null et que les 2 pseudo sont les meme
-                if (/*$verifpseudo == $pseudo && */$pseudo != '' || /*$verifemail == $mail &&*/ $mail != '' || $mdp1 != $mdp2 && $mdp1 != '') {
-                    if (/*$verifpseudo == $pseudo && */$pseudo != '') {
+                if ($verifpseudo == $pseudo && $pseudo != '' || $verifemail == $mail && $mail != '' || $mdp1 != $mdp2 && $mdp1 != '') {
+                    if ($verifpseudo == $pseudo && $pseudo != '') {
                         //message d'erreur si le pseudo est null
                         echo "<p>veuilleer choisir un  pseudo</p>";
                     }
-                    if (/*$verifemail == $mail &&*/$mail != '') {
+                    if ($verifemail == $mail && $mail != '') {
                         //message d'erreur si le mail est null
                         echo "<p>veuiller utiliser un email</p>";
                     }
